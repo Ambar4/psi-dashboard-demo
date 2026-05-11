@@ -1,0 +1,4 @@
+node_modules/
+clients/*/psi-raw/
+dist/
+*.DS_Store

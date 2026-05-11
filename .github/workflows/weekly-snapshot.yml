@@ -1,0 +1,71 @@
+name: Weekly PSI snapshot
+
+on:
+  schedule:
+    # GitHub cron is UTC. 8am Central = 13:00 UTC during CST, 14:00 UTC during CDT.
+    # Picking 13:00 UTC means it lands at 7am CT during daylight saving.
+    - cron: '0 13 * * 3'
+  workflow_dispatch:        # manual trigger from the Actions tab
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write       # Required to commit and push changes back to the repository
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - client: rei
+            cf_project: psi-dashboard-rei-demo
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Fetch repo changes (PRs / commits)
+        env:
+          SOURCE_REPO_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
+        run: ./scripts/fetch-changes.sh ${{ matrix.client }}
+
+      - name: Fetch PSI scores + build snapshot
+        env:
+          PSI_API_KEY: ${{ secrets.PSI_API_KEY }}
+        run: ./scripts/run-psi.sh ${{ matrix.client }}
+
+      - name: Record rrweb replays
+        run: ./scripts/run-rrweb.sh ${{ matrix.client }} $(date +%Y-%m-%d)
+
+      - name: Build deploy folder
+        run: ./scripts/publish.sh ${{ matrix.client }}
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >
+            pages deploy dist/${{ matrix.client }}
+            --project-name=${{ matrix.cf_project }}
+            --branch=main
+
+      - name: Commit new snapshot back to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add clients/${{ matrix.client }}/snapshots/
+
+          if ! git diff --cached --quiet; then
+            git commit -m "snapshot: ${{ matrix.client }} $(date +%Y-%m-%d)"
+
+            # Both matrix jobs push to main in parallel. Whichever lands second
+            # gets a non-fast-forward reject; rebase + retry handles the race.
+            for i in {1..5}; do
+              git pull --rebase origin main && git push origin main && break || sleep 5
+            done
+          fi

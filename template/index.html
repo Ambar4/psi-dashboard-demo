@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PSI Snapshot</title>
+<link rel="stylesheet" href="./rrweb-player.css">
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f7f7f8;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+}
+.container { max-width: 1400px; margin: 0 auto; padding: 24px 20px 40px; }
+header { margin-bottom: 20px; }
+.header-row { display: flex; align-items: center; gap: 14px; }
+.dash-logo { height: 44px; width: auto; flex-shrink: 0; display: block; }
+.dash-logo[hidden] { display: none; }
+h1 { font-size: 22px; margin: 0 0 4px; font-weight: 600; letter-spacing: -0.01em; }
+.sub { color: #666; font-size: 13px; margin: 0; }
+.sub code { background: #ececef; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.seg {
+  display: inline-flex;
+  background: #ececef;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+.seg button {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border: none;
+  background: transparent;
+  color: #555;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.seg button.active {
+  background: white;
+  color: #1a1a1a;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.seg button:hover:not(.active) { color: #1a1a1a; }
+
+.sort-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+}
+.snap-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.snap-group select { min-width: 140px; }
+#compare-wrap.disabled { opacity: 0.45; pointer-events: none; }
+.sort-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+select {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 7px 10px;
+  border: 1px solid #d5d5d8;
+  border-radius: 6px;
+  background: white;
+  color: #1a1a1a;
+}
+
+.summary {
+  background: white;
+  border: 1px solid #e5e5e8;
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.summary-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #666;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.summary-scores { display: flex; gap: 28px; flex-wrap: wrap; }
+.summary-score { text-align: center; }
+.summary-score .val { font-size: 28px; font-weight: 600; line-height: 1.1; }
+.summary-score .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #666; margin-top: 3px; font-weight: 500; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+  gap: 14px;
+}
+.card {
+  background: white;
+  border: 1px solid #e5e5e8;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.card .url {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0 0 14px;
+  word-break: break-all;
+  line-height: 1.35;
+}
+.card .host { color: #999; font-weight: 400; font-size: 11px; display: block; margin-bottom: 2px; }
+
+.rings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.ring { text-align: center; }
+.ring svg { width: 56px; height: 56px; display: block; margin: 0 auto 4px; }
+.ring .label { font-size: 10px; color: #555; }
+.ring .delta, .metric .delta { font-size: 10px; margin-top: 2px; font-weight: 600; }
+.delta.up { color: #0a7c3e; }
+.delta.down { color: #cc2a20; }
+.delta.flat { color: #999; font-weight: 500; }
+.summary-score .delta { font-size: 11px; font-weight: 600; margin-top: 4px; }
+
+.spark {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.spark-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #999;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.spark svg { flex: 1; height: 32px; display: block; overflow: visible; }
+.spark-empty { font-size: 10px; color: #999; font-style: italic; }
+.spark-dot { cursor: pointer; }
+.spark-dot .dot-visible { transition: r 0.1s; }
+.spark-dot:hover .dot-visible { stroke: #1e1e24; stroke-width: 1; }
+
+.spark-tooltip {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  margin-top: -8px;
+  background: #1e1e24;
+  color: #f5f5f7;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 9px;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  z-index: 1000;
+  white-space: nowrap;
+}
+.spark-tooltip.visible { opacity: 1; }
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 12px;
+  padding-top: 14px;
+  border-top: 1px solid #f0f0f3;
+}
+.metric .mlbl {
+  color: #888;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+.metric .mval { font-size: 13px; font-weight: 500; }
+.mval.good { color: #0a7c3e; }
+.mval.avg { color: #a26100; }
+.mval.poor { color: #cc2a20; }
+.mval.neutral { color: #555; }
+
+.insights {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f3;
+}
+.insights-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #999;
+  margin-bottom: 6px;
+}
+.insight-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 3px 0;
+  gap: 8px;
+}
+.insight-title {
+  color: #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+.insight-title::before {
+  content: "\2022";
+  color: #cc2a20;
+  margin-right: 6px;
+  font-weight: 700;
+}
+.insight-title.sev-mid::before { color: #a26100; }
+.insight-title.sev-low::before { color: #888; }
+.insight-savings {
+  font-weight: 500;
+  font-size: 11px;
+  color: #555;
+  white-space: nowrap;
+}
+.insight-savings.sev-high { color: #cc2a20; }
+.insight-savings.sev-mid { color: #a26100; }
+.insights-empty { font-size: 11px; color: #aaa; font-style: italic; }
+
+.card-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #999;
+}
+.card-footer a { color: #1a73e8; text-decoration: none; font-weight: 500; }
+.card-footer a:hover { text-decoration: underline; }
+
+.changes-section {
+  background: white;
+  border: 1px solid #e5e5e8;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+.changes-header {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #888;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.changes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.changes-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 13px;
+  color: #333;
+}
+.changes-date { color: #999; font-size: 12px; }
+.changes-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.changes-title a { color: #1a73e8; text-decoration: none; }
+.changes-title a:hover { text-decoration: underline; }
+.changes-meta { color: #999; font-size: 11px; white-space: nowrap; }
+
+.legend {
+  margin-top: 24px;
+  padding: 14px 18px;
+  background: white;
+  border: 1px solid #e5e5e8;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+}
+.legend strong { color: #1a1a1a; }
+.legend .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; vertical-align: middle; margin: 0 4px 0 0; }
+
+.btn-replay {
+  position: relative;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 11px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.btn-replay:hover { background: #1566d0; }
+.btn-replay::before { content: "\25B6  "; font-size: 9px; }
+
+.btn-replay::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  width: 260px;
+  padding: 10px 12px;
+  background: #1e1e24;
+  color: #f5f5f7;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: left;
+  white-space: normal;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+  z-index: 100;
+}
+.btn-replay:hover::after,
+.btn-replay:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.replay-modal {
+  position: fixed; inset: 0;
+  background: rgba(20,20,24,0.7);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+}
+.replay-modal[hidden] { display: none; }
+.replay-modal-inner {
+  background: white;
+  border-radius: 12px;
+  max-width: 1120px;
+  width: 100%;
+  max-height: 92vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+.replay-modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.replay-modal-title {
+  font-size: 12px;
+  color: #555;
+  font-family: SFMono-Regular, Menlo, Consolas, monospace;
+  word-break: break-all;
+  flex: 1;
+}
+.replay-close {
+  font-size: 22px;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+.replay-close:hover { color: #111; background: #f0f0f3; }
+.replay-stage {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f7f7f8;
+}
+.replay-msg { padding: 40px; text-align: center; color: #666; font-size: 13px; }
+.replay-msg.error { color: #cc2a20; }
+.replay-msg code { background: #ececef; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="header-row">
+      <img id="dash-logo" class="dash-logo" alt="" hidden>
+      <div>
+        <h1 id="dash-title">PageSpeed Insights</h1>
+        <p class="sub" id="subtitle">10 URLs, both strategies. Loading snapshots&hellip;</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="seg" role="tablist" aria-label="Strategy">
+      <button data-strategy="mobile" class="active">Mobile</button>
+      <button data-strategy="desktop">Desktop</button>
+    </div>
+    <div class="snap-group">
+      <label class="sort-label" for="snapshot">Snapshot</label>
+      <select id="snapshot"></select>
+    </div>
+    <div class="snap-group" id="compare-wrap">
+      <label class="sort-label" for="compare">Compare to</label>
+      <select id="compare">
+        <option value="">Off</option>
+      </select>
+    </div>
+    <div class="sort-group">
+      <label class="sort-label" for="sort">Sort</label>
+      <select id="sort">
+        <option value="perf-desc" selected>Performance (best first)</option>
+        <option value="perf-asc">Performance (worst first)</option>
+        <option value="original">Original order</option>
+        <option value="a11y-asc">Accessibility (worst first)</option>
+        <option value="seo-asc">SEO (worst first)</option>
+      </select>
+    </div>
+  </div>
+
+  <section class="summary">
+    <div>
+      <div class="summary-label"><span id="summary-strategy">Mobile</span> site averages</div>
+      <div class="summary-scores" id="summary-scores"></div>
+    </div>
+  </section>
+
+  <div id="changes"></div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="legend">
+    <strong>Score colors:</strong>
+    <span class="swatch" style="background:#0cce6b"></span>90-100 good
+    &nbsp;
+    <span class="swatch" style="background:#ffa400"></span>50-89 needs improvement
+    &nbsp;
+    <span class="swatch" style="background:#ff4e42"></span>0-49 poor.
+    <br>
+    <strong>Core Web Vitals targets:</strong> LCP &lt; 2.5s, CLS &lt; 0.1, TBT &lt; 200ms (lab proxy for INP).
+  </div>
+</div>
+
+<div id="replay-modal" class="replay-modal" hidden>
+  <div class="replay-modal-inner">
+    <div class="replay-modal-header">
+      <div class="replay-modal-title" id="replay-title">Replay</div>
+      <button class="replay-close" id="replay-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="replay-stage" id="replay-stage">
+      <div class="replay-msg" id="replay-msg">Loading recording&hellip;</div>
+    </div>
+  </div>
+</div>
+
+<script src="./rrweb-player.js"></script>
+<script>
+// Per-client config, loaded from config.json on init.
+let CONFIG = null;
+let BASE_HOST = '';   // e.g. 'https://www.bayalarm.com'  (full URL)
+let HOST_LABEL = '';  // e.g. 'www.bayalarm.com'          (just the host)
+
+// State
+const SNAPSHOT_DATA = {};        // { id: { mobile: [...], desktop: [...] } }
+let SNAPSHOT_INDEX = [];         // [{ id, capturedAt }]  newest first
+let URL_INDEX = {};              // url -> position in current snapshot's mobile array
+let currentSnapshotId = null;
+let compareSnapshotId = '';       // '' means compare off
+let strategy = 'mobile';
+let sortMode = 'perf-desc';
+let currentPlayer = null;
+
+// Lower-is-better metrics. Score deltas (perf, a11y, BP, SEO) are higher-is-better.
+const LOWER_IS_BETTER = new Set(['lcp', 'cls', 'tbt', 'fcp', 'si', 'ttfb']);
+
+function scoreColor(s) {
+  if (s === null || s === undefined) return '#999';
+  if (s >= 90) return '#0cce6b';
+  if (s >= 50) return '#ffa400';
+  return '#ff4e42';
+}
+function scoreBg(s) {
+  if (s === null || s === undefined) return '#f0f0f0';
+  if (s >= 90) return '#e7f8ee';
+  if (s >= 50) return '#fff4dd';
+  return '#ffe5e2';
+}
+function metricClass(score) {
+  if (score === null || score === undefined) return 'neutral';
+  if (score >= 0.9) return 'good';
+  if (score >= 0.5) return 'avg';
+  return 'poor';
+}
+
+// --- Snapshot helpers -----------------------------------------------------
+
+// Format YYYY-MM-DD into "April 21, 2026" style.
+function formatSnapshotLabel(id) {
+  // id is YYYY-MM-DD; build a Date in UTC to avoid TZ shifting the day.
+  const [y, m, d] = id.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+}
+
+// Find the URL in a snapshot that matches the current row.
+function lookupCompareRow(d, compareSnap) {
+  if (!compareSnap || !compareSnap[strategy]) return null;
+  return compareSnap[strategy].find(r => r.url === d.url) || null;
+}
+
+// Parse "6.3 s" / "730 ms" / "0.286" into { value, unit } in ms or unitless.
+// Returns null if unparseable.
+function parseMetricValue(display) {
+  if (display == null) return null;
+  const s = String(display).replace('Root document took ', '').replace(/[ ,]/g, ' ').trim();
+  const m = s.match(/^([\d.]+)\s*(s|ms)?$/i);
+  if (!m) return null;
+  const n = parseFloat(m[1]);
+  if (isNaN(n)) return null;
+  const unit = (m[2] || '').toLowerCase();
+  if (unit === 's') return { ms: n * 1000, unitless: false };
+  if (unit === 'ms') return { ms: n, unitless: false };
+  return { value: n, unitless: true };
+}
+
+// Format a metric delta. value is current minus previous in ms (or raw for unitless).
+function formatMetricDelta(diff, unitless) {
+  const sign = diff > 0 ? '+' : '';
+  if (unitless) {
+    return sign + diff.toFixed(diff === Math.round(diff) ? 0 : 3);
+  }
+  if (Math.abs(diff) >= 1000) return sign + (diff / 1000).toFixed(1) + 's';
+  return sign + Math.round(diff) + 'ms';
+}
+
+// Build a delta span. signOfImprovement = +1 means higher-is-better, -1 means lower-is-better.
+function deltaSpan(curr, prev, isMetric, metricKey) {
+  if (prev == null || curr == null) return '';
+  if (isMetric) {
+    const c = parseMetricValue(curr);
+    const p = parseMetricValue(prev);
+    if (!c || !p || c.unitless !== p.unitless) return '';
+    const diff = c.unitless ? c.value - p.value : c.ms - p.ms;
+    if (Math.abs(diff) < 0.0005) return '<div class="delta flat">unchanged</div>';
+    const better = LOWER_IS_BETTER.has(metricKey) ? diff < 0 : diff > 0;
+    const cls = better ? 'up' : 'down';
+    return '<div class="delta ' + cls + '">' + formatMetricDelta(diff, c.unitless) + '</div>';
+  }
+  // Score delta: integer, higher is better
+  const diff = curr - prev;
+  if (diff === 0) return '<div class="delta flat">&plusmn;0</div>';
+  const cls = diff > 0 ? 'up' : 'down';
+  const sign = diff > 0 ? '+' : '';
+  return '<div class="delta ' + cls + '">' + sign + diff + '</div>';
+}
+
+// --- Card rendering -------------------------------------------------------
+
+function ring(score, label, prevScore) {
+  const pct = score ?? 0;
+  const color = scoreColor(score);
+  const bg = scoreBg(score);
+  const r = 16;
+  const circ = 2 * Math.PI * r;
+  const dash = (pct / 100) * circ;
+  const delta = (prevScore != null) ? deltaSpan(score, prevScore, false) : '';
+  return '<div class="ring"><svg viewBox="0 0 40 40">' +
+    '<circle cx="20" cy="20" r="' + r + '" fill="' + bg + '" stroke="none"/>' +
+    '<circle cx="20" cy="20" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="3.5" stroke-linecap="round" ' +
+    'stroke-dasharray="' + dash + ' ' + (circ - dash) + '" ' +
+    'stroke-dashoffset="' + (circ / 4) + '"/>' +
+    '<text x="20" y="24" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a">' + (score ?? '-') + '</text>' +
+    '</svg><div class="label">' + label + '</div>' + delta + '</div>';
+}
+
+function metricCell(label, m, prevM, key) {
+  const display = (m.display || '-').replace('Root document took ', '');
+  const delta = (prevM && prevM.display) ? deltaSpan(m.display, prevM.display, true, key) : '';
+  return '<div class="metric"><div class="mlbl">' + label + '</div>' +
+    '<div class="mval ' + metricClass(m.score) + '">' + display + '</div>' + delta + '</div>';
+}
+
+// Sparkline: perf score across all snapshots for this URL.
+function sparkline(url) {
+  const points = [];
+  // Walk SNAPSHOT_INDEX in chronological order (oldest first) for the trend line.
+  const ordered = SNAPSHOT_INDEX.slice().reverse();
+  for (const s of ordered) {
+    const snap = SNAPSHOT_DATA[s.id];
+    if (!snap || !snap[strategy]) continue;
+    const row = snap[strategy].find(r => r.url === url);
+    if (row) points.push({ id: s.id, score: row.scores.performance });
+  }
+  if (points.length === 0) return '';
+  if (points.length === 1) {
+    return '<div class="spark"><div class="spark-label">Trend</div>' +
+      '<div class="spark-empty">Add another snapshot to see a trend.</div></div>';
+  }
+  const w = 240, h = 28, pad = 4;
+  const xs = (i) => pad + (i * (w - 2 * pad)) / (points.length - 1);
+  const ys = (s) => pad + (1 - s / 100) * (h - 2 * pad);
+  const path = points.map((p, i) => (i ? 'L' : 'M') + xs(i).toFixed(1) + ' ' + ys(p.score).toFixed(1)).join(' ');
+  const dots = points.map((p, i) => {
+    const isLast = i === points.length - 1;
+    const r = isLast ? 3 : 2;
+    const fill = isLast ? scoreColor(p.score) : '#bbb';
+    const cx = xs(i).toFixed(1);
+    const cy = ys(p.score).toFixed(1);
+    const label = formatSnapshotLabel(p.id);
+    return '<g class="spark-dot" data-label="' + label + '" data-score="' + p.score + '">' +
+      '<circle cx="' + cx + '" cy="' + cy + '" r="7" fill="transparent"/>' +
+      '<circle class="dot-visible" cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + fill + '"/>' +
+      '</g>';
+  }).join('');
+  const last = points[points.length - 1].score;
+  return '<div class="spark"><div class="spark-label">Perf trend</div>' +
+    '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none">' +
+    '<path d="' + path + '" fill="none" stroke="#bbb" stroke-width="1.5"/>' +
+    dots + '</svg>' +
+    '<div class="spark-label" style="color:' + scoreColor(last) + '">' + last + '</div></div>';
+}
+
+function escapeHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function formatChangeDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// Build the "Changes since <previous snapshot>" section. Filters the current
+// snapshot's commits[] to those whose date falls strictly after the compare
+// snapshot's capturedAt. If there's no compare snapshot, shows all commits
+// attached to the current snapshot (the fetch script already constrained the
+// window to (prevDate, currDate]).
+function changesBlock(currentSnap, compareSnap) {
+  if (!currentSnap) return '';
+  const all = Array.isArray(currentSnap.commits) ? currentSnap.commits : [];
+  let inWindow = all;
+  if (compareSnap && compareSnap.capturedAt) {
+    inWindow = all.filter(c => c.date && c.date > compareSnap.capturedAt);
+  }
+  const headerLabel = compareSnap
+    ? 'Changes since ' + formatSnapshotLabel(compareSnap.id)
+    : 'Recent changes';
+  const header = '<div class="changes-header">' + headerLabel + '</div>';
+  if (inWindow.length === 0) {
+    return '<div class="changes-section">' + header +
+      '<div class="changes-meta" style="font-style:italic;">No pull request (PR) activity in this window.</div>' +
+    '</div>';
+  }
+  const rows = inWindow.map(c => {
+    const date = formatChangeDate(c.date);
+    const meta = c.type === 'pr'
+      ? 'by ' + escapeHtml(c.author) + ' &middot; #' + c.number
+      : 'by ' + escapeHtml(c.author) + ' &middot; ' + escapeHtml(c.sha || '');
+    const titleHtml = c.url
+      ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.title) + '</a>'
+      : escapeHtml(c.title);
+    return '<div class="changes-row">' +
+      '<div class="changes-date">' + date + '</div>' +
+      '<div class="changes-title">' + titleHtml + '</div>' +
+      '<div class="changes-meta">' + meta + '</div>' +
+    '</div>';
+  }).join('');
+  return '<div class="changes-section">' + header +
+    '<div class="changes-list">' + rows + '</div>' +
+  '</div>';
+}
+
+function formatSavings(ins) {
+  if (ins.savingsMs && ins.savingsMs >= 50) {
+    return ins.savingsMs >= 1000
+      ? '~' + (ins.savingsMs / 1000).toFixed(1) + 's'
+      : '~' + Math.round(ins.savingsMs) + 'ms';
+  }
+  if (ins.savingsBytes && ins.savingsBytes >= 1024) {
+    return ins.savingsBytes >= 1024 * 1024
+      ? '~' + (ins.savingsBytes / (1024 * 1024)).toFixed(1) + 'MB'
+      : '~' + Math.round(ins.savingsBytes / 1024) + 'KB';
+  }
+  return ins.displayValue || '';
+}
+
+function severity(ins) {
+  // High = >=500ms or >=300KB; Mid = >=150ms or >=100KB; else Low.
+  const ms = ins.savingsMs || 0;
+  const kb = (ins.savingsBytes || 0) / 1024;
+  if (ms >= 500 || kb >= 300) return 'high';
+  if (ms >= 150 || kb >= 100) return 'mid';
+  return 'low';
+}
+
+function insightsBlock(insights) {
+  // Backwards-compat: old snapshots have no insights field. Hide the section.
+  if (!Array.isArray(insights)) return '';
+  if (insights.length === 0) {
+    return '<div class="insights">' +
+      '<div class="insights-label">Top opportunities</div>' +
+      '<div class="insights-empty">No major opportunities flagged.</div>' +
+      '</div>';
+  }
+  const rows = insights.map(ins => {
+    const sev = severity(ins);
+    const sevClass = sev === 'high' ? '' : (sev === 'mid' ? ' sev-mid' : ' sev-low');
+    const savingsClass = sev === 'high' ? ' sev-high' : (sev === 'mid' ? ' sev-mid' : '');
+    const savings = formatSavings(ins);
+    return '<div class="insight-row">' +
+      '<div class="insight-title' + sevClass + '" title="' + ins.title.replace(/"/g, '&quot;') + '">' +
+        ins.title +
+      '</div>' +
+      (savings ? '<div class="insight-savings' + savingsClass + '">' + savings + '</div>' : '') +
+      '</div>';
+  }).join('');
+  return '<div class="insights">' +
+    '<div class="insights-label">Top opportunities</div>' +
+    rows +
+    '</div>';
+}
+
+function card(d, compareRow) {
+  const path = d.url.replace(BASE_HOST, '') || '/';
+  const reportUrl = 'https://pagespeed.web.dev/report?url=' + encodeURIComponent(d.url) + '&form_factor=' + strategy;
+  const urlIdx = URL_INDEX[d.url];
+  const replayTip = 'Replays the actual page load captured by rrweb. Mobile is throttled to match PSI (Slow 4G + 4x CPU, Moto G Power viewport). Desktop runs unthrottled. Toggle the Mobile/Desktop switch above to pick which recording plays.';
+  const replayBtn = (typeof urlIdx === 'number')
+    ? '<button class="btn-replay" data-url-idx="' + urlIdx + '" data-tip="' + replayTip + '" aria-label="Replay page load">Replay load</button>'
+    : '';
+  const ps = compareRow && compareRow.scores;
+  const pm = compareRow && compareRow.metrics;
+  return '<div class="card">' +
+    '<div class="url"><span class="host">' + HOST_LABEL + '</span>' + path + '</div>' +
+    '<div class="rings">' +
+      ring(d.scores.performance, 'Perf', ps && ps.performance) +
+      ring(d.scores.accessibility, 'A11y', ps && ps.accessibility) +
+      ring(d.scores.bestPractices, 'Best Prac', ps && ps.bestPractices) +
+      ring(d.scores.seo, 'SEO', ps && ps.seo) +
+    '</div>' +
+    '<div class="metrics">' +
+      metricCell('LCP', d.metrics.lcp, pm && pm.lcp, 'lcp') +
+      metricCell('CLS', d.metrics.cls, pm && pm.cls, 'cls') +
+      metricCell('TBT', d.metrics.tbt, pm && pm.tbt, 'tbt') +
+      metricCell('FCP', d.metrics.fcp, pm && pm.fcp, 'fcp') +
+      metricCell('Speed Idx', d.metrics.si, pm && pm.si, 'si') +
+      metricCell('TTFB', d.metrics.ttfb, pm && pm.ttfb, 'ttfb') +
+    '</div>' +
+    insightsBlock(d.insights) +
+    sparkline(d.url) +
+    '<div class="card-footer">' +
+      replayBtn +
+      '<a href="' + reportUrl + '" target="_blank" rel="noopener">Full PSI report &rarr;</a>' +
+    '</div>' +
+  '</div>';
+}
+
+function summaryScore(label, avg, prevAvg) {
+  const delta = (prevAvg != null) ? deltaSpan(avg, prevAvg, false) : '';
+  return '<div class="summary-score"><div class="val" style="color:' + scoreColor(avg) + '">' + avg + '</div><div class="lbl">' + label + '</div>' + delta + '</div>';
+}
+
+function sortData(data, mode) {
+  const d = data.slice();
+  switch (mode) {
+    case 'perf-asc': return d.sort((a, b) => a.scores.performance - b.scores.performance);
+    case 'perf-desc': return d.sort((a, b) => b.scores.performance - a.scores.performance);
+    case 'a11y-asc': return d.sort((a, b) => a.scores.accessibility - b.scores.accessibility);
+    case 'seo-asc': return d.sort((a, b) => a.scores.seo - b.scores.seo);
+    default: return d;
+  }
+}
+
+// --- Render ---------------------------------------------------------------
+
+function render() {
+  const snap = SNAPSHOT_DATA[currentSnapshotId];
+  if (!snap) return;
+  const data = snap[strategy];
+  const compareSnap = compareSnapshotId ? SNAPSHOT_DATA[compareSnapshotId] : null;
+  const compareData = compareSnap ? compareSnap[strategy] : null;
+
+  const avg = (arr, k) => Math.round(arr.reduce((s, d) => s + (d.scores[k] ?? 0), 0) / arr.length);
+
+  document.getElementById('summary-strategy').textContent = strategy === 'mobile' ? 'Mobile' : 'Desktop';
+  const ca = avg(data, 'performance');
+  const ca2 = avg(data, 'accessibility');
+  const ca3 = avg(data, 'bestPractices');
+  const ca4 = avg(data, 'seo');
+  const pa = compareData ? avg(compareData, 'performance') : null;
+  const pa2 = compareData ? avg(compareData, 'accessibility') : null;
+  const pa3 = compareData ? avg(compareData, 'bestPractices') : null;
+  const pa4 = compareData ? avg(compareData, 'seo') : null;
+  document.getElementById('summary-scores').innerHTML =
+    summaryScore('Performance', ca, pa) +
+    summaryScore('Accessibility', ca2, pa2) +
+    summaryScore('Best Practices', ca3, pa3) +
+    summaryScore('SEO', ca4, pa4);
+
+  document.getElementById('changes').innerHTML = changesBlock(snap, compareSnap);
+
+  document.getElementById('grid').innerHTML = sortData(data, sortMode)
+    .map(d => card(d, lookupCompareRow(d, compareSnap)))
+    .join('');
+
+  // Subtitle reflects current snapshot
+  const sub = document.getElementById('subtitle');
+  const label = formatSnapshotLabel(currentSnapshotId);
+  const compareLabel = compareSnapshotId ? ', vs ' + formatSnapshotLabel(compareSnapshotId) : '';
+  sub.textContent = '10 URLs, both strategies. Snapshot: ' + label + compareLabel + '.';
+}
+
+// --- Init -----------------------------------------------------------------
+
+async function init() {
+  // Step 1: load per-client config so we know the base URL, display name, host, etc.
+  try {
+    const cfgResp = await fetch('config.json', { cache: 'no-cache' });
+    if (!cfgResp.ok) throw new Error('HTTP ' + cfgResp.status);
+    CONFIG = await cfgResp.json();
+  } catch (e) {
+    document.getElementById('subtitle').textContent =
+      'Could not load config.json. Make sure publish.sh has been run for this client.';
+    return;
+  }
+  BASE_HOST = (CONFIG.baseUrl || '').replace(/\/$/, '');
+  try { HOST_LABEL = new URL(CONFIG.baseUrl).host; } catch (e) { HOST_LABEL = ''; }
+  document.title = (CONFIG.displayName || 'PSI') + ' — Snapshot';
+  document.getElementById('dash-title').textContent =
+    'PageSpeed Insights — ' + (CONFIG.displayName || '');
+
+  // Optional client logo. Looks for config.logoFile (e.g. "logo.png" or "logo.svg")
+  // sitting next to index.html in the deploy folder. Hidden if missing.
+  if (CONFIG.logoFile) {
+    const logo = document.getElementById('dash-logo');
+    logo.src = CONFIG.logoFile;
+    logo.alt = CONFIG.displayName + ' logo';
+    logo.hidden = false;
+    // If the file 404s, hide gracefully so the title still renders alone.
+    logo.onerror = () => { logo.hidden = true; };
+  }
+
+  // Step 2: load snapshot index
+  let indexResp;
+  try {
+    indexResp = await fetch('snapshots/index.json', { cache: 'no-cache' });
+    if (!indexResp.ok) throw new Error('HTTP ' + indexResp.status);
+  } catch (e) {
+    document.getElementById('subtitle').textContent =
+      'Could not load snapshots/index.json. Make sure the snapshots folder is deployed.';
+    return;
+  }
+  const indexJson = await indexResp.json();
+  // Sort newest first by id (YYYY-MM-DD sorts lexicographically as date)
+  SNAPSHOT_INDEX = indexJson.slice().sort((a, b) => b.id.localeCompare(a.id));
+
+  // Fetch all snapshot files in parallel.
+  const fetched = await Promise.all(SNAPSHOT_INDEX.map(s =>
+    fetch('snapshots/' + s.id + '.json', { cache: 'no-cache' })
+      .then(r => r.ok ? r.json() : null)
+      .catch(() => null)
+  ));
+  fetched.forEach((data, i) => {
+    if (data) SNAPSHOT_DATA[SNAPSHOT_INDEX[i].id] = data;
+  });
+
+  // Default selections
+  currentSnapshotId = SNAPSHOT_INDEX[0].id;
+  compareSnapshotId = SNAPSHOT_INDEX[1] ? SNAPSHOT_INDEX[1].id : '';
+
+  // Build URL_INDEX from current snapshot's mobile array
+  const m = SNAPSHOT_DATA[currentSnapshotId].mobile;
+  URL_INDEX = m.reduce((acc, d, i) => (acc[d.url] = i, acc), {});
+
+  populatePickers();
+  render();
+}
+
+function populatePickers() {
+  const snapSel = document.getElementById('snapshot');
+  const cmpSel = document.getElementById('compare');
+  snapSel.innerHTML = SNAPSHOT_INDEX
+    .map(s => '<option value="' + s.id + '">' + formatSnapshotLabel(s.id) + '</option>').join('');
+  snapSel.value = currentSnapshotId;
+
+  const cmpOpts = SNAPSHOT_INDEX.filter(s => s.id !== currentSnapshotId)
+    .map(s => '<option value="' + s.id + '">' + formatSnapshotLabel(s.id) + '</option>').join('');
+  cmpSel.innerHTML = '<option value="">Off</option>' + cmpOpts;
+  cmpSel.value = compareSnapshotId;
+
+  document.getElementById('compare-wrap').classList.toggle('disabled', SNAPSHOT_INDEX.length < 2);
+}
+
+// --- Event wiring ---------------------------------------------------------
+
+document.querySelectorAll('.seg button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.seg button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    strategy = btn.dataset.strategy;
+    render();
+  });
+});
+document.getElementById('sort').addEventListener('change', e => {
+  sortMode = e.target.value;
+  render();
+});
+document.getElementById('snapshot').addEventListener('change', e => {
+  currentSnapshotId = e.target.value;
+  // Refresh URL_INDEX in case URL set differs across snapshots
+  const m = SNAPSHOT_DATA[currentSnapshotId].mobile;
+  URL_INDEX = m.reduce((acc, d, i) => (acc[d.url] = i, acc), {});
+  populatePickers();
+  render();
+});
+document.getElementById('compare').addEventListener('change', e => {
+  compareSnapshotId = e.target.value;
+  render();
+});
+
+// Replay wiring: delegate clicks from the grid so newly rendered buttons work.
+document.getElementById('grid').addEventListener('click', e => {
+  const btn = e.target.closest('.btn-replay');
+  if (!btn) return;
+  const idx = parseInt(btn.dataset.urlIdx, 10);
+  if (!Number.isNaN(idx)) openReplay(idx);
+});
+
+// Sparkline hover tooltip: one shared element, positioned to whichever dot is hovered.
+const sparkTip = document.createElement('div');
+sparkTip.className = 'spark-tooltip';
+document.body.appendChild(sparkTip);
+document.getElementById('grid').addEventListener('mouseover', e => {
+  const dot = e.target.closest('.spark-dot');
+  if (!dot) return;
+  sparkTip.textContent = dot.dataset.label + ': ' + dot.dataset.score;
+  // Anchor to the visible inner circle, not the transparent hit zone.
+  const visible = dot.querySelector('.dot-visible');
+  const rect = (visible || dot).getBoundingClientRect();
+  sparkTip.style.left = (rect.left + rect.width / 2) + 'px';
+  sparkTip.style.top = rect.top + 'px';
+  sparkTip.classList.add('visible');
+});
+document.getElementById('grid').addEventListener('mouseout', e => {
+  if (e.target.closest('.spark-dot')) sparkTip.classList.remove('visible');
+});
+document.getElementById('replay-close').addEventListener('click', closeReplay);
+document.getElementById('replay-modal').addEventListener('click', e => {
+  if (e.target.id === 'replay-modal') closeReplay();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !document.getElementById('replay-modal').hidden) closeReplay();
+});
+
+function showReplayMsg(text, isError) {
+  const stage = document.getElementById('replay-stage');
+  stage.innerHTML = '<div class="replay-msg' + (isError ? ' error' : '') + '">' + text + '</div>';
+}
+
+function openReplay(urlIdx) {
+  const snap = SNAPSHOT_DATA[currentSnapshotId];
+  const url = snap && snap.mobile[urlIdx] && snap.mobile[urlIdx].url;
+  const activeStrategy = strategy;
+  const snapshotLabel = formatSnapshotLabel(currentSnapshotId);
+  document.getElementById('replay-title').textContent =
+    (url || ('url-' + urlIdx)) + '  \u2022  ' + activeStrategy + '  \u2022  ' + snapshotLabel;
+  document.getElementById('replay-modal').hidden = false;
+  showReplayMsg('Loading ' + activeStrategy + ' recording&hellip;', false);
+
+  // Snapshot-scoped path; fall back to flat path for back-compat.
+  const scoped = 'rrweb-recordings/' + currentSnapshotId + '/url-' + urlIdx + '-' + activeStrategy + '-rrweb.json';
+  const flatStrat = 'rrweb-recordings/url-' + urlIdx + '-' + activeStrategy + '-rrweb.json';
+  const flat = 'rrweb-recordings/url-' + urlIdx + '-rrweb.json';
+
+  fetch(scoped, { cache: 'no-cache' })
+    .then(r => r.ok ? r : fetch(flatStrat, { cache: 'no-cache' }))
+    .then(r => r.ok ? r : fetch(flat, { cache: 'no-cache' }))
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' fetching recording');
+      return r.json();
+    })
+    .then(data => {
+      if (!data.events || data.events.length < 2) {
+        throw new Error('Recording is empty or has fewer than 2 events');
+      }
+      if (typeof rrwebPlayer === 'undefined') {
+        throw new Error('rrweb-player failed to load');
+      }
+      const stage = document.getElementById('replay-stage');
+      stage.innerHTML = '';
+      const availW = Math.max(360, stage.clientWidth - 32);
+      const captured = (data.viewport && data.viewport.width) || 1440;
+      const scale = Math.min(1, availW / captured);
+      currentPlayer = new rrwebPlayer({
+        target: stage,
+        props: {
+          events: data.events,
+          width: captured * scale,
+          height: ((data.viewport && data.viewport.height) || 900) * scale,
+          autoPlay: true,
+          showController: true,
+          skipInactive: false,
+        },
+      });
+    })
+    .catch(err => {
+      showReplayMsg(
+        'Could not load replay for snapshot <code>' + currentSnapshotId + '</code>: ' + err.message + '.<br><br>' +
+        'Run <code>./run-rrweb.sh ' + currentSnapshotId + '</code> to generate recordings for this snapshot, then redeploy.',
+        true
+      );
+    });
+}
+
+function closeReplay() {
+  document.getElementById('replay-modal').hidden = true;
+  if (currentPlayer) {
+    try { currentPlayer.$destroy(); } catch (e) {}
+    currentPlayer = null;
+  }
+  document.getElementById('replay-stage').innerHTML = '';
+}
+
+init();
+</script>
+</body>
+</html>

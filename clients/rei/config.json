@@ -1,0 +1,17 @@
+{
+  "id": "rei",
+  "displayName": "REI Co-op (Demo)",
+  "baseUrl": "https://www.rei.com",
+  "urls": [
+    "https://www.rei.com/",
+    "https://www.rei.com/c/camping-and-hiking",
+    "https://www.rei.com/c/hiking-footwear",
+    "https://www.rei.com/c/mens-rainwear",
+    "https://www.rei.com/c/snow-sports",
+    "https://www.rei.com/membership",
+    "https://www.rei.com/stores",
+    "https://www.rei.com/sale",
+    "https://www.rei.com/learn/expert-advice/backpacking-beginners.html",
+    "https://www.rei.com/learn/expert-advice/how-to-choose-tent.html"
+  ]
+}
