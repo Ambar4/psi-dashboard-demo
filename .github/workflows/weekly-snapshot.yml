@@ -65,7 +65,16 @@ jobs:
 
             # Both matrix jobs push to main in parallel. Whichever lands second
             # gets a non-fast-forward reject; rebase + retry handles the race.
+            PUSHED=0
             for i in {1..5}; do
-              git pull --rebase origin main && git push origin main && break || sleep 5
+              if git pull --rebase origin main && git push origin main; then
+                PUSHED=1
+                break
+              fi
+              sleep 5
             done
+            if [ "$PUSHED" = "0" ]; then
+              echo "ERROR: failed to push snapshot back to repo after 5 retries"
+              exit 1
+            fi
           fi

@@ -1,4 +1,5 @@
 node_modules/
 clients/*/psi-raw/
+clients/*/rrweb-recordings/
 dist/
 *.DS_Store
