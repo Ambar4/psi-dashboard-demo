@@ -1,0 +1,17 @@
+{
+  "id": "smashing",
+  "displayName": "Smashing Magazine (Demo)",
+  "baseUrl": "https://www.smashingmagazine.com",
+  "urls": [
+    "https://www.smashingmagazine.com/",
+    "https://www.smashingmagazine.com/articles/",
+    "https://www.smashingmagazine.com/category/css/",
+    "https://www.smashingmagazine.com/category/javascript/",
+    "https://www.smashingmagazine.com/category/performance/",
+    "https://www.smashingmagazine.com/category/accessibility/",
+    "https://www.smashingmagazine.com/membership/",
+    "https://www.smashingmagazine.com/printed-books/",
+    "https://www.smashingmagazine.com/online-workshops/",
+    "https://www.smashingmagazine.com/the-smashing-newsletter/"
+  ]
+}

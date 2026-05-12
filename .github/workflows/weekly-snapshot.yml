@@ -16,8 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - client: rei
-            cf_project: psi-dashboard-rei-demo
+          - client: smashing
+            cf_project: psi-dashboard-smashing-demo
     steps:
       - uses: actions/checkout@v4
 
