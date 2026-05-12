@@ -63,11 +63,17 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m "snapshot: ${{ matrix.client }} $(date +%Y-%m-%d)"
 
-            # Both matrix jobs push to main in parallel. Whichever lands second
-            # gets a non-fast-forward reject; rebase + retry handles the race.
+            # Diagnostic: show what's in the working tree before push attempt.
+            echo "--- git status before push ---"
+            git status --short
+            echo "--------------------------------"
+
+            # --autostash handles any untracked or modified files that would
+            # otherwise block the rebase. Multiple matrix jobs may also race
+            # to push to main; retry loop handles non-fast-forward rejects.
             PUSHED=0
             for i in {1..5}; do
-              if git pull --rebase origin main && git push origin main; then
+              if git pull --rebase --autostash origin main && git push origin main; then
                 PUSHED=1
                 break
               fi
