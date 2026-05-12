@@ -75,13 +75,46 @@ function extractInsights(audits, limit = 3) {
   return opps.slice(0, limit);
 }
 
+// Returns a row with all-null scores/metrics. Used when PSI failed for a URL
+// (timeout, Lighthouse error, etc.) so build-snapshot.js doesn't crash on the
+// malformed/empty raw file. The dashboard renders nulls as dashes.
+function nullRow(url, reason) {
+  console.warn(`WARN: ${url} → ${reason}. Inserting null row.`);
+  return {
+    url,
+    fetchTime: null,
+    scores: { performance: null, accessibility: null, bestPractices: null, seo: null },
+    metrics: {
+      lcp:  { display: '-', score: null },
+      fcp:  { display: '-', score: null },
+      cls:  { display: '-', score: null },
+      tbt:  { display: '-', score: null },
+      si:   { display: '-', score: null },
+      ttfb: { display: '-', score: null },
+    },
+    insights: [],
+  };
+}
+
 function extractRow(rawPath, url) {
   if (!fs.existsSync(rawPath)) {
-    throw new Error(`Missing raw file: ${rawPath}`);
+    return nullRow(url, `missing raw file ${rawPath}`);
   }
-  const raw = JSON.parse(fs.readFileSync(rawPath, 'utf8'));
+  let raw;
+  try {
+    const text = fs.readFileSync(rawPath, 'utf8');
+    if (!text.trim()) {
+      return nullRow(url, 'raw PSI file is empty (likely API timeout)');
+    }
+    raw = JSON.parse(text);
+  } catch (e) {
+    return nullRow(url, `could not parse PSI response: ${e.message}`);
+  }
   const lh = raw.lighthouseResult;
-  if (!lh) throw new Error(`No lighthouseResult in ${rawPath}`);
+  if (!lh) {
+    const apiErr = raw && raw.error && raw.error.message;
+    return nullRow(url, apiErr ? `PSI API error: ${apiErr}` : 'no lighthouseResult in PSI response');
+  }
 
   const cats = lh.categories;
   const round = v => (v == null ? null : Math.round(v * 100));
