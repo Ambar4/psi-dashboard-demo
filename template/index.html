@@ -278,8 +278,23 @@ select {
   letter-spacing: 0.06em;
   color: #888;
   font-weight: 500;
-  margin-bottom: 10px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+.changes-header::-webkit-details-marker { display: none; }
+.changes-header::before {
+  content: "\25B6";
+  font-size: 9px;
+  color: #aaa;
+  transition: transform 0.15s ease;
+  display: inline-block;
+}
+details[open] > .changes-header::before { transform: rotate(90deg); }
+details[open] > .changes-header { margin-bottom: 10px; }
 .changes-list {
   display: flex;
   flex-direction: column;
@@ -436,8 +451,7 @@ select {
     <strong>Demo data.</strong> Page speed scores are real (Smashing Magazine's actual PSI results, refreshed weekly).
     Repository changes shown below are illustrative, pulled from a
     <a href="https://github.com/Ambar4/smashing-demo-changes" target="_blank" rel="noopener" style="color:#5a4a10; text-decoration: underline;">demo repo</a>
-    to showcase the GitHub PR overlay feature. The dashboard source is on
-    <a href="https://github.com/Ambar4/psi-dashboard-demo" target="_blank" rel="noopener" style="color:#5a4a10; text-decoration: underline;">GitHub</a>.
+    to showcase the GitHub PR overlay feature.
   </div>
   <header>
     <div class="header-row">
@@ -703,13 +717,13 @@ function changesBlock(currentSnap, compareSnap) {
     inWindow = all.filter(c => c.date && c.date > compareSnap.capturedAt);
   }
   const headerLabel = compareSnap
-    ? 'Changes since ' + formatSnapshotLabel(compareSnap.id)
-    : 'Recent changes';
-  const header = '<div class="changes-header">' + headerLabel + '</div>';
+    ? 'Website/Code Changes since ' + formatSnapshotLabel(compareSnap.id)
+    : 'Recent Website/Code Changes';
+  const header = '<summary class="changes-header">' + headerLabel + '</summary>';
   if (inWindow.length === 0) {
-    return '<div class="changes-section">' + header +
+    return '<details class="changes-section" open>' + header +
       '<div class="changes-meta" style="font-style:italic;">No pull request (PR) activity in this window.</div>' +
-    '</div>';
+    '</details>';
   }
   const rows = inWindow.map(c => {
     const date = formatChangeDate(c.date);
@@ -725,9 +739,9 @@ function changesBlock(currentSnap, compareSnap) {
       '<div class="changes-meta">' + meta + '</div>' +
     '</div>';
   }).join('');
-  return '<div class="changes-section">' + header +
+  return '<details class="changes-section" open>' + header +
     '<div class="changes-list">' + rows + '</div>' +
-  '</div>';
+  '</details>';
 }
 
 function formatSavings(ins) {
