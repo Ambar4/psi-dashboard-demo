@@ -2,6 +2,7 @@
   "id": "smashing",
   "displayName": "Smashing Magazine (Demo)",
   "baseUrl": "https://www.smashingmagazine.com",
+  "repo": "Ambar4/smashing-demo-changes",
   "urls": [
     "https://www.smashingmagazine.com/",
     "https://www.smashingmagazine.com/articles/",

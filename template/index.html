@@ -416,10 +416,29 @@ select {
 .replay-msg { padding: 40px; text-align: center; color: #666; font-size: 13px; }
 .replay-msg.error { color: #cc2a20; }
 .replay-msg code { background: #ececef; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+.demo-banner {
+  background: #fff8e1;
+  border: 1px solid #f0d97a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: #5a4a10;
+  line-height: 1.5;
+}
+.demo-banner strong { color: #3d3208; font-weight: 600; }
 </style>
 </head>
 <body>
 <div class="container">
+  <div class="demo-banner">
+    <strong>Demo data.</strong> Page speed scores are real (Smashing Magazine's actual PSI results, refreshed weekly).
+    Repository changes shown below are illustrative, pulled from a
+    <a href="https://github.com/Ambar4/smashing-demo-changes" target="_blank" rel="noopener" style="color:#5a4a10; text-decoration: underline;">demo repo</a>
+    to showcase the GitHub PR overlay feature. The dashboard source is on
+    <a href="https://github.com/Ambar4/psi-dashboard-demo" target="_blank" rel="noopener" style="color:#5a4a10; text-decoration: underline;">GitHub</a>.
+  </div>
   <header>
     <div class="header-row">
       <img id="dash-logo" class="dash-logo" alt="" hidden>
