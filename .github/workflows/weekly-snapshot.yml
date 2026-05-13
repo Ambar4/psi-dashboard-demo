@@ -2,9 +2,10 @@ name: Weekly PSI snapshot
 
 on:
   schedule:
-    # GitHub cron is UTC. 8am Central = 13:00 UTC during CST, 14:00 UTC during CDT.
-    # Picking 13:00 UTC means it lands at 7am CT during daylight saving.
-    - cron: '0 13 * * 3'
+    # GitHub cron is UTC. 13:07 UTC = 7:07 CST (winter) / 8:07 CDT (summer).
+    # Using :07 minute instead of :00 — GitHub Actions delays or drops
+    # scheduled runs that fire at the top of an hour due to high load.
+    - cron: '7 13 * * 3'
   workflow_dispatch:        # manual trigger from the Actions tab
 
 jobs:
