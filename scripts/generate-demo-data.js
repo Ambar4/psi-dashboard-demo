@@ -167,13 +167,32 @@ function generateGa4() {
   if (!src || !src.urls) return { urls: {} };
   const out = {};
   for (const [url, baseline] of Object.entries(src.urls)) {
-    const drift = m => seededFloat(`${SNAPSHOT_ID}:${url}:${m}`, -0.15, 0.15);
-    out[url] = {
-      views: Math.max(0, Math.round(baseline.views * (1 + drift('views')))),
-      users: Math.max(0, Math.round(baseline.users * (1 + drift('users')))),
-      engagementMs: Math.max(0, Math.round(baseline.engagementMs * (1 + drift('engage')))),
-      keyEvents: Math.max(0, Math.round(baseline.keyEvents * (1 + drift('keyEvents')))),
-    };
+    // Baseline can be device-split ({mobile: {...}, desktop: {...}}) or flat
+    // ({views, users, ...}). Detect by looking for the mobile key.
+    const deviceSplit = baseline && baseline.mobile && baseline.desktop;
+    if (deviceSplit) {
+      out[url] = {};
+      for (const device of ['mobile', 'desktop']) {
+        const dev = baseline[device];
+        const drift = m => seededFloat(`${SNAPSHOT_ID}:${url}:${device}:${m}`, -0.15, 0.15);
+        out[url][device] = {
+          views:        Math.max(0, Math.round(dev.views        * (1 + drift('views')))),
+          users:        Math.max(0, Math.round(dev.users        * (1 + drift('users')))),
+          engagementMs: Math.max(0, Math.round(dev.engagementMs * (1 + drift('engage')))),
+          keyEvents:    Math.max(0, Math.round(dev.keyEvents    * (1 + drift('keyEvents')))),
+        };
+      }
+    } else {
+      // Legacy flat shape: keep emitting the same shape so build-snapshot stays
+      // backward-compatible.
+      const drift = m => seededFloat(`${SNAPSHOT_ID}:${url}:${m}`, -0.15, 0.15);
+      out[url] = {
+        views:        Math.max(0, Math.round(baseline.views        * (1 + drift('views')))),
+        users:        Math.max(0, Math.round(baseline.users        * (1 + drift('users')))),
+        engagementMs: Math.max(0, Math.round(baseline.engagementMs * (1 + drift('engage')))),
+        keyEvents:    Math.max(0, Math.round(baseline.keyEvents    * (1 + drift('keyEvents')))),
+      };
+    }
   }
   return { urls: out };
 }

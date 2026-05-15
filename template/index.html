@@ -1039,10 +1039,15 @@ function renderTrendChart() {
     for (const c of (snap.growthbook || [])) events.push({ src: 'growthbook', date: c.date, title: c.title });
     for (const c of (snap.optimizely || [])) events.push({ src: 'optimizely', date: c.date, title: c.title });
   }
-  // Restrict to events that fit within the chart's time range AND are in an
-  // enabled-source row. Stray data from disabled sources gets hidden cleanly.
+  // Apply the same "current snapshot window" floor that the Changes section
+  // uses, so the trend chart's markers and legend reflect just events that
+  // happened since the compare snapshot. Without a compare snapshot, show
+  // everything in the chart's time range.
+  const compareSnap = compareSnapshotId ? SNAPSHOT_DATA[compareSnapshotId] : null;
+  const windowFloor = compareSnap && compareSnap.capturedAt ? compareSnap.capturedAt : null;
   const inRange = events.filter(e => {
     if (!sourcesEnabled[e.src]) return false;
+    if (windowFloor && e.date && e.date <= windowFloor) return false;
     const t = Date.parse(e.date || '');
     return !isNaN(t) && t >= tMin && t <= tMax + 86400000;
   });
@@ -1097,7 +1102,8 @@ function renderTrendChart() {
   const legend = '<div class="trend-legend">' + legendItems + '</div>';
 
   const headerLabel = (strategy === 'mobile' ? 'Mobile' : 'Desktop') +
-    ' performance trend &amp; changes';
+    ' performance trend &amp; changes' +
+    (compareSnap ? ' since ' + formatSnapshotLabel(compareSnap.id) : '');
 
   const svg = '<svg viewBox="0 0 ' + TREND_W + ' ' + TREND_H +
     '" preserveAspectRatio="none">' +
@@ -1377,16 +1383,31 @@ function insightsBlock(insights) {
     '</div>';
 }
 
+// Resolve per-URL GA4 metrics for the active strategy. Newer snapshots store
+// device-split data as ga4[url].mobile / ga4[url].desktop; older snapshots
+// have flat shape (ga4[url].views, etc.) -- fall back to that when needed so
+// historic snapshots still render.
+function ga4ForUrl(snap, url) {
+  if (!snap || !snap.ga4) return null;
+  const urlData = snap.ga4[url];
+  if (!urlData) return null;
+  if (urlData.mobile || urlData.desktop) {
+    return urlData[strategy] || null;
+  }
+  // Legacy flat shape: same numbers regardless of strategy.
+  return urlData.views != null ? urlData : null;
+}
+
 // GA4 per-card strip: 4 metrics (Views, Users, Avg Engagement, Key Events) with
 // week-over-week delta vs the compare snapshot. Hidden when GA4 isn't enabled
 // for this client or when no data exists for the URL.
 function ga4Strip(url) {
   if (!CONFIG || !CONFIG.ga4 || CONFIG.ga4.enabled === false) return '';
   const snap = SNAPSHOT_DATA[currentSnapshotId];
-  const cur = snap && snap.ga4 && snap.ga4[url];
+  const cur = ga4ForUrl(snap, url);
   if (!cur) return '';
   const compareSnap = compareSnapshotId ? SNAPSHOT_DATA[compareSnapshotId] : null;
-  const prev = compareSnap && compareSnap.ga4 && compareSnap.ga4[url];
+  const prev = ga4ForUrl(compareSnap, url);
 
   const fmtNum = n => (n == null ? '-' : Number(n).toLocaleString('en-US'));
   const fmtTime = ms => {
@@ -1413,8 +1434,9 @@ function ga4Strip(url) {
       delta +
     '</div>';
 
+  const deviceLabel = strategy === 'mobile' ? 'Mobile' : 'Desktop';
   return '<div class="ga4-strip">' +
-    '<div class="ga4-strip-label">GA4 (this snapshot window)</div>' +
+    '<div class="ga4-strip-label">GA4 &mdash; ' + deviceLabel + ' (this snapshot window)</div>' +
     '<div class="ga4-grid">' +
       cell('Views',      fmtNum(cur.views),         pctDelta(cur.views,        prev && prev.views)) +
       cell('Users',      fmtNum(cur.users),         pctDelta(cur.users,        prev && prev.users)) +

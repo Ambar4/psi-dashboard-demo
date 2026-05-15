@@ -1,65 +1,45 @@
 {
-  "_comment": "Illustrative GA4 per-URL baselines for the public demo. Numbers represent rough weekly volume for a high-traffic editorial site (Smashing Magazine scale). generate-demo-data.js applies a deterministic per-snapshot random walk (±5-15%) so week-over-week deltas look organic. engagementMs is milliseconds; keyEvents is the conversion proxy (newsletter signups, book purchases, etc).",
+  "_comment": "Illustrative GA4 per-URL baselines, split by device type. The dashboard's mobile/desktop toggle picks the right block. Mobile share varies by page type: editorial/social pages skew mobile (~65-70%), purchase intent pages skew desktop (~55%). Engagement time on desktop is typically 1.3-1.6x mobile. generate-demo-data.js applies a deterministic per-snapshot random walk (+/-15%) to each metric.",
   "urls": {
     "https://www.smashingmagazine.com/": {
-      "views": 58000,
-      "users": 42000,
-      "engagementMs": 38000,
-      "keyEvents": 187
+      "mobile":  { "views": 35000, "users": 25500, "engagementMs": 31000, "keyEvents": 112 },
+      "desktop": { "views": 23000, "users": 16500, "engagementMs": 47000, "keyEvents": 75 }
     },
     "https://www.smashingmagazine.com/articles/": {
-      "views": 31000,
-      "users": 24500,
-      "engagementMs": 72000,
-      "keyEvents": 94
+      "mobile":  { "views": 17050, "users": 13475, "engagementMs": 56000, "keyEvents": 52 },
+      "desktop": { "views": 13950, "users": 11025, "engagementMs": 87000, "keyEvents": 42 }
     },
     "https://www.smashingmagazine.com/category/css/": {
-      "views": 14500,
-      "users": 11200,
-      "engagementMs": 95000,
-      "keyEvents": 52
+      "mobile":  { "views": 8700, "users": 6720, "engagementMs": 73000, "keyEvents": 31 },
+      "desktop": { "views": 5800, "users": 4480, "engagementMs": 121000, "keyEvents": 21 }
     },
     "https://www.smashingmagazine.com/category/javascript/": {
-      "views": 12300,
-      "users": 9700,
-      "engagementMs": 102000,
-      "keyEvents": 48
+      "mobile":  { "views": 7380, "users": 5820, "engagementMs": 79000, "keyEvents": 29 },
+      "desktop": { "views": 4920, "users": 3880, "engagementMs": 130000, "keyEvents": 19 }
     },
     "https://www.smashingmagazine.com/category/performance/": {
-      "views": 8200,
-      "users": 6800,
-      "engagementMs": 118000,
-      "keyEvents": 41
+      "mobile":  { "views": 4510, "users": 3740, "engagementMs": 91000, "keyEvents": 23 },
+      "desktop": { "views": 3690, "users": 3060, "engagementMs": 151000, "keyEvents": 18 }
     },
     "https://www.smashingmagazine.com/category/accessibility/": {
-      "views": 6900,
-      "users": 5700,
-      "engagementMs": 124000,
-      "keyEvents": 38
+      "mobile":  { "views": 3795, "users": 3135, "engagementMs": 95000, "keyEvents": 21 },
+      "desktop": { "views": 3105, "users": 2565, "engagementMs": 159000, "keyEvents": 17 }
     },
     "https://www.smashingmagazine.com/membership/": {
-      "views": 4200,
-      "users": 3600,
-      "engagementMs": 156000,
-      "keyEvents": 73
+      "mobile":  { "views": 1890, "users": 1620, "engagementMs": 117000, "keyEvents": 33 },
+      "desktop": { "views": 2310, "users": 1980, "engagementMs": 195000, "keyEvents": 40 }
     },
     "https://www.smashingmagazine.com/printed-books/": {
-      "views": 3800,
-      "users": 3200,
-      "engagementMs": 142000,
-      "keyEvents": 81
+      "mobile":  { "views": 1710, "users": 1440, "engagementMs": 106000, "keyEvents": 36 },
+      "desktop": { "views": 2090, "users": 1760, "engagementMs": 178000, "keyEvents": 45 }
     },
     "https://www.smashingmagazine.com/online-workshops/": {
-      "views": 2400,
-      "users": 2000,
-      "engagementMs": 168000,
-      "keyEvents": 34
+      "mobile":  { "views": 1080, "users": 900, "engagementMs": 126000, "keyEvents": 15 },
+      "desktop": { "views": 1320, "users": 1100, "engagementMs": 210000, "keyEvents": 19 }
     },
     "https://www.smashingmagazine.com/the-smashing-newsletter/": {
-      "views": 5600,
-      "users": 4800,
-      "engagementMs": 64000,
-      "keyEvents": 142
+      "mobile":  { "views": 3920, "users": 3360, "engagementMs": 51000, "keyEvents": 92 },
+      "desktop": { "views": 1680, "users": 1440, "engagementMs": 80000, "keyEvents": 50 }
     }
   }
 }
