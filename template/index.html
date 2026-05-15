@@ -265,6 +265,116 @@ select {
 .card-footer a { color: #1a73e8; text-decoration: none; font-weight: 500; }
 .card-footer a:hover { text-decoration: underline; }
 
+.trend-chart {
+  background: white;
+  border: 1px solid #e5e5e8;
+  border-radius: 12px;
+  padding: 16px 22px 14px;
+  margin-bottom: 20px;
+}
+.trend-chart-header {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #888;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.trend-chart svg {
+  display: block;
+  width: 100%;
+  height: 200px;
+  overflow: visible;
+}
+.trend-empty {
+  font-size: 12px;
+  color: #999;
+  font-style: italic;
+  padding: 12px 0 6px;
+}
+.trend-legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #666;
+  flex-wrap: wrap;
+}
+.trend-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.trend-legend-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+.trend-legend-swatch.github { background: #1a73e8; border-radius: 50%; }
+.trend-legend-swatch.wordpress { background: #f57c00; }
+.trend-legend-swatch.growthbook,
+.trend-legend-swatch.optimizely {
+  width: 0; height: 0;
+  border: 6px solid transparent;
+  border-bottom-color: #7e57c2;
+  position: relative;
+  top: -3px;
+}
+.trend-legend-swatch.growthbook::after,
+.trend-legend-swatch.optimizely::after {
+  content: '';
+  position: absolute;
+  left: -6px; top: 6px;
+  border: 6px solid transparent;
+  border-top-color: #7e57c2;
+}
+.trend-legend-swatch.tinacms { background: #f57c00; }
+
+/* GA4 per-card strip: 4 small metrics with deltas, between the perf metrics
+   grid and the sparkline. Shown only when snapshot.ga4 has data for the URL. */
+.ga4-strip {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f3;
+}
+.ga4-strip-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #999;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.ga4-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.ga4-cell .glbl {
+  color: #888;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+.ga4-cell .gval { font-size: 13px; font-weight: 500; color: #1a1a1a; }
+.ga4-cell .delta { font-size: 10px; font-weight: 600; margin-top: 2px; }
+
+/* Demo disclaimer banner: shown only when config.demoMode === true. */
+.demo-banner {
+  background: #fff8e1;
+  border: 1px solid #f3d77a;
+  border-left: 3px solid #d4a017;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: #5d4500;
+  line-height: 1.5;
+}
+.demo-banner[hidden] { display: none; }
+.demo-banner strong { color: #3d2e00; }
+.trend-marker { cursor: pointer; }
+.trend-marker:hover { opacity: 0.65; }
+.trend-axis-label { fill: #999; font-size: 10px; }
+
 .changes-section {
   background: white;
   border: 1px solid #e5e5e8;
@@ -313,6 +423,67 @@ details[open] > .changes-header { margin-bottom: 10px; }
 .changes-title a { color: #1a73e8; text-decoration: none; }
 .changes-title a:hover { text-decoration: underline; }
 .changes-meta { color: #999; font-size: 11px; white-space: nowrap; }
+.changes-meta a { color: #999; text-decoration: none; }
+.changes-meta a:hover { color: #1a73e8; text-decoration: underline; }
+
+.changes-tabs {
+  display: inline-flex;
+  background: #ececef;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+.changes-tab {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: #555;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.changes-tab.active {
+  background: white;
+  color: #1a1a1a;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.changes-tab:hover:not(.active) { color: #1a1a1a; }
+.changes-tab .count {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.08);
+  font-size: 10px;
+  font-weight: 600;
+  color: #555;
+}
+.changes-tab.active .count { background: #ececef; }
+
+/* Hover cue for experiment rows: dotted underline on the title plus a small
+   info glyph signals that more context (hypothesis) is available on hover.
+   Native title attribute carries the hypothesis text. */
+.changes-row .hypothesis-cue {
+  display: inline-block;
+  margin-left: 4px;
+  color: #999;
+  font-size: 11px;
+  cursor: help;
+  user-select: none;
+  vertical-align: 1px;
+}
+.changes-row .hypothesis-cue:hover { color: #1a73e8; }
+.changes-row a.with-hover-info {
+  border-bottom: 1px dotted #b8d1f5;
+}
+.changes-row a.with-hover-info:hover {
+  border-bottom-color: #1a73e8;
+  text-decoration: none;
+}
 
 .legend {
   margin-top: 24px;
@@ -431,28 +602,10 @@ details[open] > .changes-header { margin-bottom: 10px; }
 .replay-msg { padding: 40px; text-align: center; color: #666; font-size: 13px; }
 .replay-msg.error { color: #cc2a20; }
 .replay-msg code { background: #ececef; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
-
-.demo-banner {
-  background: #fff8e1;
-  border: 1px solid #f0d97a;
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 18px;
-  font-size: 13px;
-  color: #5a4a10;
-  line-height: 1.5;
-}
-.demo-banner strong { color: #3d3208; font-weight: 600; }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="demo-banner">
-    <strong>Demo data.</strong> Page speed scores are real (Smashing Magazine's actual PSI results, refreshed weekly).
-    Repository changes shown below are illustrative, pulled from a
-    <a href="https://github.com/Ambar4/smashing-demo-changes" target="_blank" rel="noopener" style="color:#5a4a10; text-decoration: underline;">demo repo</a>
-    to showcase the GitHub PR overlay feature.
-  </div>
   <header>
     <div class="header-row">
       <img id="dash-logo" class="dash-logo" alt="" hidden>
@@ -462,6 +615,13 @@ details[open] > .changes-header { margin-bottom: 10px; }
       </div>
     </div>
   </header>
+
+  <div id="demo-banner" class="demo-banner" hidden>
+    <strong>Public demo.</strong> PageSpeed scores are real (live PSI data for Smashing Magazine). The
+    <strong>TinaCMS</strong> content edits, <strong>Optimizely</strong> experiments, and <strong>GA4</strong> per-URL
+    analytics shown below are <strong>illustrative</strong> &mdash; they exist to show what the dashboard
+    looks like with all sources connected.
+  </div>
 
   <div class="toolbar">
     <div class="seg" role="tablist" aria-label="Strategy">
@@ -496,6 +656,8 @@ details[open] > .changes-header { margin-bottom: 10px; }
       <div class="summary-scores" id="summary-scores"></div>
     </div>
   </section>
+
+  <div id="trend"></div>
 
   <div id="changes"></div>
 
@@ -697,6 +859,220 @@ function escapeHtml(s) {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// --- Global trend chart ---------------------------------------------------
+
+// Visual constants. SVG viewBox; CSS stretches the chart to container width.
+const TREND_W = 1200;
+const TREND_H = 200;
+const TREND_PAD = { left: 30, right: 18, top: 14, bottom: 50 };
+const TREND_PLOT_W = TREND_W - TREND_PAD.left - TREND_PAD.right;
+const TREND_PLOT_H = TREND_H - TREND_PAD.top - TREND_PAD.bottom;
+// Markers live in a band below the perf line plot. Each source gets its own row
+// inside the band so events on the same date don't pile on top of each other.
+// Row order is determined at render time from the set of enabled sources so
+// the band stays compact (no empty rows for sources the client doesn't use).
+const TREND_MARKER_ROW_H = 10;
+const TREND_SOURCE_ORDER = ['github', 'wordpress', 'tinacms', 'growthbook', 'optimizely'];
+
+const SOURCE_LABELS = {
+  github: 'GitHub',
+  wordpress: 'WordPress',
+  tinacms: 'TinaCMS',
+  growthbook: 'GrowthBook',
+  optimizely: 'Optimizely',
+};
+// Demo and LHC clients never enable both CMS sources or both A/B sources, so
+// the colors can be shared (TinaCMS uses WP's orange, Optimizely uses GB's purple).
+const SOURCE_COLORS = {
+  github: '#1a73e8',
+  wordpress: '#f57c00',
+  tinacms: '#f57c00',
+  growthbook: '#7e57c2',
+  optimizely: '#7e57c2',
+};
+// Source -> marker shape on the trend chart. TinaCMS shares WP's square,
+// Optimizely shares GB's diamond.
+const SOURCE_SHAPE = {
+  github: 'circle',
+  wordpress: 'square',
+  tinacms: 'square',
+  growthbook: 'diamond',
+  optimizely: 'diamond',
+};
+
+// Day-level clustering key: events on the same source + day get one marker
+// whose size scales with the count. Tooltip lists the cluster contents.
+function trendDayKey(iso) { return iso ? iso.slice(0, 10) : ''; }
+
+function renderTrendChart() {
+  if (!CONFIG || SNAPSHOT_INDEX.length === 0) return '';
+
+  // 1) Build the per-snapshot aggregate perf series for the active strategy.
+  const trendData = SNAPSHOT_INDEX
+    .slice().reverse()  // oldest first
+    .map(s => {
+      const snap = SNAPSHOT_DATA[s.id];
+      if (!snap || !snap[strategy]) return null;
+      const valid = snap[strategy].filter(r => r.scores.performance != null);
+      if (valid.length === 0) return null;
+      const avg = Math.round(valid.reduce((sum, r) => sum + r.scores.performance, 0) / valid.length);
+      return { id: s.id, score: avg };
+    })
+    .filter(Boolean);
+
+  if (trendData.length < 2) {
+    return '<div class="trend-chart">' +
+      '<div class="trend-chart-header">Performance trend &amp; changes</div>' +
+      '<div class="trend-empty">Add another snapshot to see the trend chart.</div>' +
+    '</div>';
+  }
+
+  // 2) Time axis: oldest snapshot at left edge, newest at right. Linear time scale.
+  const dateMs = id => Date.parse(id + 'T12:00:00Z');
+  const tMin = dateMs(trendData[0].id);
+  const tMax = dateMs(trendData[trendData.length - 1].id);
+  const tSpan = Math.max(1, tMax - tMin);
+  const xFromTime = t => TREND_PAD.left + ((t - tMin) / tSpan) * TREND_PLOT_W;
+  const xFromId = id => xFromTime(dateMs(id));
+  const xFromIso = iso => {
+    const t = Date.parse(iso);
+    return xFromTime(Math.max(tMin, Math.min(tMax, isNaN(t) ? tMin : t)));
+  };
+  const yFromScore = s => TREND_PAD.top + (1 - s / 100) * TREND_PLOT_H;
+
+  // 3) Y-axis gridlines + labels.
+  const gridlines = [0, 50, 90, 100].map(y => {
+    const yp = yFromScore(y).toFixed(1);
+    return '<line x1="' + TREND_PAD.left + '" x2="' + (TREND_PAD.left + TREND_PLOT_W) +
+      '" y1="' + yp + '" y2="' + yp + '" stroke="#eee" stroke-width="1"/>' +
+      '<text class="trend-axis-label" x="' + (TREND_PAD.left - 4) +
+      '" y="' + (parseFloat(yp) + 3) + '" text-anchor="end">' + y + '</text>';
+  }).join('');
+
+  // 4) Perf line: path + reusable .spark-dot for tooltip parity with sparklines.
+  const linePath = trendData.map((p, i) =>
+    (i ? 'L' : 'M') + xFromId(p.id).toFixed(1) + ' ' + yFromScore(p.score).toFixed(1)
+  ).join(' ');
+  const lineDots = trendData.map(p => {
+    const cx = xFromId(p.id).toFixed(1);
+    const cy = yFromScore(p.score).toFixed(1);
+    return '<g class="spark-dot" data-label="' + formatSnapshotLabel(p.id) +
+      ': ' + p.score + '">' +
+      '<circle cx="' + cx + '" cy="' + cy + '" r="8" fill="transparent"/>' +
+      '<circle class="dot-visible" cx="' + cx + '" cy="' + cy + '" r="3.5" fill="' +
+      scoreColor(p.score) + '"/>' +
+    '</g>';
+  }).join('');
+
+  // 5a) Which sources to render rows for, in priority order. Empty rows are
+  // skipped so the marker band stays compact for clients that enable a subset.
+  const sourcesEnabled = {
+    github:     !!(CONFIG && CONFIG.repo),
+    wordpress:  !!(CONFIG && CONFIG.wordpress  && CONFIG.wordpress.enabled  !== false),
+    tinacms:    !!(CONFIG && CONFIG.tinacms    && CONFIG.tinacms.enabled    !== false),
+    growthbook: !!(CONFIG && CONFIG.growthbook && CONFIG.growthbook.enabled !== false),
+    optimizely: !!(CONFIG && CONFIG.optimizely && CONFIG.optimizely.enabled !== false),
+  };
+  const markerRows = TREND_SOURCE_ORDER.filter(s => sourcesEnabled[s]);
+  const rowYFor = src => TREND_PAD.top + TREND_PLOT_H + 6 + TREND_MARKER_ROW_H * markerRows.indexOf(src);
+  const markerBandH = TREND_MARKER_ROW_H * Math.max(1, markerRows.length);
+
+  // 5b) X-axis labels: snapshot dates (year suffix stripped to save space).
+  const xLabels = trendData.map(p => {
+    const x = xFromId(p.id).toFixed(1);
+    const label = formatSnapshotLabel(p.id).replace(/,\s*\d{4}$/, '');
+    return '<text class="trend-axis-label" x="' + x + '" y="' +
+      (TREND_PAD.top + TREND_PLOT_H + 6 + markerBandH + 14) +
+      '" text-anchor="middle">' + label + '</text>';
+  }).join('');
+
+  // 6) Collect all change events across snapshots. Each source-tagged.
+  const events = [];
+  for (const s of SNAPSHOT_INDEX) {
+    const snap = SNAPSHOT_DATA[s.id];
+    if (!snap) continue;
+    for (const c of (snap.commits    || [])) events.push({ src: 'github',     date: c.date, title: c.title });
+    for (const c of (snap.wordpress  || [])) events.push({ src: 'wordpress',  date: c.date, title: c.title });
+    for (const c of (snap.tinacms    || [])) events.push({ src: 'tinacms',    date: c.date, title: c.title });
+    for (const c of (snap.growthbook || [])) events.push({ src: 'growthbook', date: c.date, title: c.title });
+    for (const c of (snap.optimizely || [])) events.push({ src: 'optimizely', date: c.date, title: c.title });
+  }
+  // Restrict to events that fit within the chart's time range AND are in an
+  // enabled-source row. Stray data from disabled sources gets hidden cleanly.
+  const inRange = events.filter(e => {
+    if (!sourcesEnabled[e.src]) return false;
+    const t = Date.parse(e.date || '');
+    return !isNaN(t) && t >= tMin && t <= tMax + 86400000;
+  });
+
+  // 7) Cluster by (source, day). One marker per cluster, size scales sub-linearly.
+  const clusters = {};
+  for (const ev of inRange) {
+    const key = ev.src + '|' + trendDayKey(ev.date);
+    if (!clusters[key]) clusters[key] = { src: ev.src, day: trendDayKey(ev.date), items: [] };
+    clusters[key].items.push(ev);
+  }
+  const markers = Object.values(clusters).map(cl => {
+    const x = xFromIso(cl.day + 'T12:00:00Z');
+    const y = rowYFor(cl.src);
+    const count = cl.items.length;
+    const r = Math.min(6.5, 2.6 + Math.sqrt(count) * 0.9);  // 1 -> ~3.5, 14 -> ~6
+    const fill = SOURCE_COLORS[cl.src];
+    const shapeKind = SOURCE_SHAPE[cl.src] || 'circle';
+    const labelTitle = count === 1
+      ? cl.items[0].title || '(untitled)'
+      : count + ' items';
+    const label = SOURCE_LABELS[cl.src] + ' ' + cl.day + ': ' + labelTitle;
+    let shape;
+    if (shapeKind === 'circle') {
+      shape = '<circle cx="' + x.toFixed(1) + '" cy="' + y + '" r="' + r.toFixed(1) +
+        '" fill="' + fill + '"/>';
+    } else if (shapeKind === 'square') {
+      const s = r * 1.5;
+      shape = '<rect x="' + (x - s/2).toFixed(1) + '" y="' + (y - s/2).toFixed(1) +
+        '" width="' + s.toFixed(1) + '" height="' + s.toFixed(1) +
+        '" fill="' + fill + '"/>';
+    } else {
+      const s = r * 1.25;
+      const pts = [
+        x.toFixed(1) + ',' + (y - s).toFixed(1),
+        (x + s).toFixed(1) + ',' + y,
+        x.toFixed(1) + ',' + (y + s).toFixed(1),
+        (x - s).toFixed(1) + ',' + y,
+      ].join(' ');
+      shape = '<polygon points="' + pts + '" fill="' + fill + '"/>';
+    }
+    return '<g class="trend-marker" data-label="' + escapeHtml(label) +
+      '" data-source="' + cl.src + '">' + shape + '</g>';
+  }).join('');
+
+  // 8) Legend with counts. Hide sources the client doesn't have enabled.
+  const counts = inRange.reduce((acc, e) => { acc[e.src] = (acc[e.src] || 0) + 1; return acc; }, {});
+  const legendItems = markerRows
+    .map(s => '<span class="trend-legend-item"><span class="trend-legend-swatch ' + s + '"></span>' +
+      SOURCE_LABELS[s] + ' (' + (counts[s] || 0) + ')</span>')
+    .join('');
+  const legend = '<div class="trend-legend">' + legendItems + '</div>';
+
+  const headerLabel = (strategy === 'mobile' ? 'Mobile' : 'Desktop') +
+    ' performance trend &amp; changes';
+
+  const svg = '<svg viewBox="0 0 ' + TREND_W + ' ' + TREND_H +
+    '" preserveAspectRatio="none">' +
+    gridlines +
+    '<path d="' + linePath + '" fill="none" stroke="#bbb" stroke-width="1.5"/>' +
+    lineDots +
+    markers +
+    xLabels +
+  '</svg>';
+
+  return '<div class="trend-chart">' +
+    '<div class="trend-chart-header">' + headerLabel + '</div>' +
+    svg +
+    legend +
+  '</div>';
+}
+
 function formatChangeDate(iso) {
   if (!iso) return '';
   const d = new Date(iso);
@@ -704,44 +1080,160 @@ function formatChangeDate(iso) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-// Build the "Changes since <previous snapshot>" section. Filters the current
-// snapshot's commits[] to those whose date falls strictly after the compare
-// snapshot's capturedAt. If there's no compare snapshot, shows all commits
-// attached to the current snapshot (the fetch script already constrained the
-// window to (prevDate, currDate]).
+// Active tab for the Changes section. Persisted in localStorage so reloads
+// remember the user's choice. Falls back to the first visible source if the
+// saved tab isn't available for this client (e.g., switched clients).
+let activeChangesTab = (function () {
+  try { return localStorage.getItem('changesTab') || 'github'; } catch (e) { return 'github'; }
+})();
+
+// Capitalize the first letter; leave the rest. "started" -> "Started".
+function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+// Per-item row renderer. Branches on c.type so GitHub PRs/commits, WordPress
+// pages/posts/templates, and GrowthBook experiments render with the right meta.
+function changeRow(c) {
+  const date = formatChangeDate(c.date);
+  const linkOrText = (txt, url, extraClass) => {
+    if (!url) return escapeHtml(txt);
+    const cls = extraClass ? ' class="' + extraClass + '"' : '';
+    return '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener"' + cls + '>' + escapeHtml(txt) + '</a>';
+  };
+  let meta = '';
+  let titleHtml = linkOrText(c.title || '(no title)', c.url);
+  if (c.type === 'pr') {
+    meta = 'by ' + escapeHtml(c.author) + ' &middot; #' + c.number;
+  } else if (c.type === 'commit') {
+    meta = 'by ' + escapeHtml(c.author) + ' &middot; ' + escapeHtml(c.sha || '');
+  } else if (c.type === 'wp-page' || c.type === 'wp-post' || c.type === 'wp-template') {
+    const typeLabel = c.type === 'wp-page' ? 'Page'
+      : (c.type === 'wp-post' ? 'Post' : 'Template');
+    const editLink = c.editUrl
+      ? ' &middot; <a href="' + escapeHtml(c.editUrl) + '" target="_blank" rel="noopener">Edit &#8599;</a>'
+      : '';
+    meta = 'by ' + escapeHtml(c.author) + ' &middot; ' + typeLabel + editLink;
+  } else if (c.type === 'tina-page' || c.type === 'tina-post') {
+    // TinaCMS rows mirror WP rows but skip the Edit link (illustrative data
+    // on the demo doesn't have a real admin URL to point at).
+    const typeLabel = c.type === 'tina-page' ? 'Page' : 'Post';
+    meta = 'by ' + escapeHtml(c.author) + ' &middot; ' + typeLabel;
+  } else if (c.type === 'experiment') {
+    // Hypothesis goes into the native title attribute; the dotted underline +
+    // info glyph signal that hover reveals more. Skip the glyph when there's
+    // no hypothesis to show (otherwise the cue is a lie).
+    const tip = c.hypothesis || '';
+    const titleClass = tip ? 'with-hover-info' : '';
+    const tipAttr = tip ? ' title="Hypothesis: ' + escapeHtml(tip) + '"' : '';
+    const link = c.url
+      ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener"'
+        + (titleClass ? ' class="' + titleClass + '"' : '') + tipAttr + '>'
+        + escapeHtml(c.title) + '</a>'
+      : '<span' + (titleClass ? ' class="' + titleClass + '"' : '') + tipAttr + '>'
+        + escapeHtml(c.title) + '</span>';
+    const cue = tip
+      ? '<span class="hypothesis-cue" title="Hypothesis: ' + escapeHtml(tip) + '">&#9432;</span>'
+      : '';
+    titleHtml = link + cue;
+    const reason = capitalize(c.reason || 'updated');
+    const author = c.author ? 'by ' + escapeHtml(c.author) + ' &middot; ' : '';
+    meta = author + reason + ' &middot; Experiment';
+  } else {
+    meta = c.author ? 'by ' + escapeHtml(c.author) : '';
+  }
+  return '<div class="changes-row">' +
+    '<div class="changes-date">' + date + '</div>' +
+    '<div class="changes-title">' + titleHtml + '</div>' +
+    '<div class="changes-meta">' + meta + '</div>' +
+  '</div>';
+}
+
+// Apply the compare-window filter (strictly after the compare snapshot's
+// capturedAt). Returns items as-is if there's no compare snapshot.
+function filterChangesToWindow(items, compareSnap) {
+  if (!Array.isArray(items)) return [];
+  if (compareSnap && compareSnap.capturedAt) {
+    return items.filter(c => c.date && c.date > compareSnap.capturedAt);
+  }
+  return items;
+}
+
+// Build the "Changes since <previous snapshot>" section as a tabbed panel.
+// Sources: GitHub (always shown if config.repo set), WordPress (shown if
+// config.wordpress.enabled). GrowthBook slot reserved for Phase 2.
 function changesBlock(currentSnap, compareSnap) {
   if (!currentSnap) return '';
-  const all = Array.isArray(currentSnap.commits) ? currentSnap.commits : [];
-  let inWindow = all;
-  if (compareSnap && compareSnap.capturedAt) {
-    inWindow = all.filter(c => c.date && c.date > compareSnap.capturedAt);
+  // Label can be overridden in config (e.g., demo uses platform names).
+  const labelFor = (key, fallback) => {
+    const cfgBlock = CONFIG && CONFIG[key];
+    return (cfgBlock && cfgBlock.label) || fallback;
+  };
+  const sources = [
+    {
+      key: 'github',
+      label: 'GitHub',
+      enabled: !!(CONFIG && CONFIG.repo),
+      items: filterChangesToWindow(currentSnap.commits, compareSnap),
+      emptyText: 'No pull request (PR) or commit activity in this window.',
+    },
+    {
+      key: 'wordpress',
+      label: labelFor('wordpress', 'WordPress'),
+      enabled: !!(CONFIG && CONFIG.wordpress && CONFIG.wordpress.enabled !== false),
+      items: filterChangesToWindow(currentSnap.wordpress, compareSnap),
+      emptyText: 'No WordPress content changes in this window.',
+    },
+    {
+      key: 'tinacms',
+      label: labelFor('tinacms', 'TinaCMS'),
+      enabled: !!(CONFIG && CONFIG.tinacms && CONFIG.tinacms.enabled !== false),
+      items: filterChangesToWindow(currentSnap.tinacms, compareSnap),
+      emptyText: 'No content edits in this window.',
+    },
+    {
+      key: 'growthbook',
+      label: labelFor('growthbook', 'GrowthBook'),
+      enabled: !!(CONFIG && CONFIG.growthbook && CONFIG.growthbook.enabled !== false),
+      items: filterChangesToWindow(currentSnap.growthbook, compareSnap),
+      emptyText: 'No GrowthBook experiment activity in this window.',
+    },
+    {
+      key: 'optimizely',
+      label: labelFor('optimizely', 'Optimizely'),
+      enabled: !!(CONFIG && CONFIG.optimizely && CONFIG.optimizely.enabled !== false),
+      items: filterChangesToWindow(currentSnap.optimizely, compareSnap),
+      emptyText: 'No experiment activity in this window.',
+    },
+  ].filter(s => s.enabled);
+
+  if (sources.length === 0) return '';
+
+  // If the persisted tab isn't visible for this client, fall back to first.
+  if (!sources.some(s => s.key === activeChangesTab)) {
+    activeChangesTab = sources[0].key;
   }
+
   const headerLabel = compareSnap
     ? 'Website/Code Changes since ' + formatSnapshotLabel(compareSnap.id)
     : 'Recent Website/Code Changes';
   const header = '<summary class="changes-header">' + headerLabel + '</summary>';
-  if (inWindow.length === 0) {
-    return '<details class="changes-section" open>' + header +
-      '<div class="changes-meta" style="font-style:italic;">No pull request (PR) activity in this window.</div>' +
-    '</details>';
-  }
-  const rows = inWindow.map(c => {
-    const date = formatChangeDate(c.date);
-    const meta = c.type === 'pr'
-      ? 'by ' + escapeHtml(c.author) + ' &middot; #' + c.number
-      : 'by ' + escapeHtml(c.author) + ' &middot; ' + escapeHtml(c.sha || '');
-    const titleHtml = c.url
-      ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.title) + '</a>'
-      : escapeHtml(c.title);
-    return '<div class="changes-row">' +
-      '<div class="changes-date">' + date + '</div>' +
-      '<div class="changes-title">' + titleHtml + '</div>' +
-      '<div class="changes-meta">' + meta + '</div>' +
-    '</div>';
-  }).join('');
-  return '<details class="changes-section" open>' + header +
-    '<div class="changes-list">' + rows + '</div>' +
-  '</details>';
+
+  // Hide the tab row entirely when only one source is enabled. Single-source
+  // clients (Topps after Phase 1, before WP secret is set) shouldn't see a
+  // pointless single-tab strip.
+  const tabsHtml = sources.length > 1
+    ? '<div class="changes-tabs">' + sources.map(s => {
+        const active = s.key === activeChangesTab ? ' active' : '';
+        return '<button class="changes-tab' + active + '" data-source="' + s.key + '">' +
+          s.label + ' <span class="count">' + s.items.length + '</span></button>';
+      }).join('') + '</div>'
+    : '';
+
+  const active = sources.find(s => s.key === activeChangesTab) || sources[0];
+  const body = active.items.length === 0
+    ? '<div class="changes-meta" style="font-style:italic;">' + active.emptyText + '</div>'
+    : '<div class="changes-list">' + active.items.map(changeRow).join('') + '</div>';
+
+  return '<details class="changes-section" open>' + header + tabsHtml + body + '</details>';
 }
 
 function formatSavings(ins) {
@@ -794,6 +1286,53 @@ function insightsBlock(insights) {
     '</div>';
 }
 
+// GA4 per-card strip: 4 metrics (Views, Users, Avg Engagement, Key Events) with
+// week-over-week delta vs the compare snapshot. Hidden when GA4 isn't enabled
+// for this client or when no data exists for the URL.
+function ga4Strip(url) {
+  if (!CONFIG || !CONFIG.ga4 || CONFIG.ga4.enabled === false) return '';
+  const snap = SNAPSHOT_DATA[currentSnapshotId];
+  const cur = snap && snap.ga4 && snap.ga4[url];
+  if (!cur) return '';
+  const compareSnap = compareSnapshotId ? SNAPSHOT_DATA[compareSnapshotId] : null;
+  const prev = compareSnap && compareSnap.ga4 && compareSnap.ga4[url];
+
+  const fmtNum = n => (n == null ? '-' : Number(n).toLocaleString('en-US'));
+  const fmtTime = ms => {
+    if (ms == null) return '-';
+    if (ms < 1000) return Math.round(ms) + 'ms';
+    if (ms < 60000) return Math.round(ms / 1000) + 's';
+    const m = Math.floor(ms / 60000);
+    const s = Math.round((ms % 60000) / 1000);
+    return m + 'm ' + (s < 10 ? '0' : '') + s + 's';
+  };
+  // All 4 metrics are higher-is-better, so up = green = .delta.up.
+  const pctDelta = (curr, prev_) => {
+    if (prev_ == null || curr == null || prev_ === 0) return '';
+    const diff = ((curr - prev_) / prev_) * 100;
+    if (Math.abs(diff) < 0.5) return '<div class="delta flat">&plusmn;0%</div>';
+    const cls = diff > 0 ? 'up' : 'down';
+    const sign = diff > 0 ? '+' : '';
+    return '<div class="delta ' + cls + '">' + sign + diff.toFixed(0) + '%</div>';
+  };
+  const cell = (label, val, delta) =>
+    '<div class="ga4-cell">' +
+      '<div class="glbl">' + label + '</div>' +
+      '<div class="gval">' + val + '</div>' +
+      delta +
+    '</div>';
+
+  return '<div class="ga4-strip">' +
+    '<div class="ga4-strip-label">GA4 (this snapshot window)</div>' +
+    '<div class="ga4-grid">' +
+      cell('Views',      fmtNum(cur.views),         pctDelta(cur.views,        prev && prev.views)) +
+      cell('Users',      fmtNum(cur.users),         pctDelta(cur.users,        prev && prev.users)) +
+      cell('Engage',     fmtTime(cur.engagementMs), pctDelta(cur.engagementMs, prev && prev.engagementMs)) +
+      cell('Key events', fmtNum(cur.keyEvents),     pctDelta(cur.keyEvents,    prev && prev.keyEvents)) +
+    '</div>' +
+  '</div>';
+}
+
 function card(d, compareRow) {
   const path = d.url.replace(BASE_HOST, '') || '/';
   const reportUrl = 'https://pagespeed.web.dev/report?url=' + encodeURIComponent(d.url) + '&form_factor=' + strategy;
@@ -821,6 +1360,7 @@ function card(d, compareRow) {
       metricCell('TTFB', d.metrics.ttfb, pm && pm.ttfb, 'ttfb') +
     '</div>' +
     insightsBlock(d.insights) +
+    ga4Strip(d.url) +
     sparkline(d.url) +
     '<div class="card-footer">' +
       replayBtn +
@@ -871,6 +1411,7 @@ function render() {
     summaryScore('Best Practices', ca3, pa3) +
     summaryScore('SEO', ca4, pa4);
 
+  document.getElementById('trend').innerHTML = renderTrendChart();
   document.getElementById('changes').innerHTML = changesBlock(snap, compareSnap);
 
   document.getElementById('grid').innerHTML = sortData(data, sortMode)
@@ -902,6 +1443,14 @@ async function init() {
   document.title = (CONFIG.displayName || 'PSI') + ' — Snapshot';
   document.getElementById('dash-title').textContent =
     'PageSpeed Insights — ' + (CONFIG.displayName || '');
+
+  // Demo disclaimer banner: shown only when the config opts in (demoMode flag).
+  // Lives at the top of the dashboard so first-time visitors see it before
+  // they engage with any of the illustrative source data below.
+  if (CONFIG.demoMode) {
+    const banner = document.getElementById('demo-banner');
+    if (banner) banner.hidden = false;
+  }
 
   // Optional client logo. Looks for config.logoFile (e.g. "logo.png" or "logo.svg")
   // sitting next to index.html in the deploy folder. Hidden if missing.
@@ -998,6 +1547,33 @@ document.getElementById('grid').addEventListener('click', e => {
   if (!btn) return;
   const idx = parseInt(btn.dataset.urlIdx, 10);
   if (!Number.isNaN(idx)) openReplay(idx);
+});
+
+// Tab switching for the Changes section. Delegated so re-renders don't break.
+document.getElementById('changes').addEventListener('click', e => {
+  const tab = e.target.closest('.changes-tab');
+  if (!tab) return;
+  activeChangesTab = tab.dataset.source;
+  try { localStorage.setItem('changesTab', activeChangesTab); } catch (err) {}
+  render();
+});
+
+// Trend chart tooltip: reuse the shared spark-tooltip element. Covers both
+// snapshot dots (.spark-dot) and source markers (.trend-marker).
+document.getElementById('trend').addEventListener('mouseover', e => {
+  const target = e.target.closest('.trend-marker, .spark-dot');
+  if (!target) return;
+  const label = target.dataset.label;
+  if (!label) return;
+  sparkTip.textContent = label;
+  const visible = target.querySelector('.dot-visible') || target.querySelector('circle, rect, polygon');
+  const rect = (visible || target).getBoundingClientRect();
+  sparkTip.style.left = (rect.left + rect.width / 2) + 'px';
+  sparkTip.style.top = rect.top + 'px';
+  sparkTip.classList.add('visible');
+});
+document.getElementById('trend').addEventListener('mouseout', e => {
+  if (e.target.closest('.trend-marker, .spark-dot')) sparkTip.classList.remove('visible');
 });
 
 // Sparkline hover tooltip: one shared element, positioned to whichever dot is hovered.

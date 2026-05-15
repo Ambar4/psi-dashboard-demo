@@ -163,6 +163,51 @@ function readChanges() {
   }
 }
 
+// Read wordpress.json (written by fetch-wp-changes.js) if it exists.
+// Returns the items array, or [] if missing/errored.
+function readWordPressChanges() {
+  return readChangesFile('wordpress.json');
+}
+
+// Read growthbook.json (written by fetch-gb-changes.js) if it exists.
+function readGrowthBookChanges() {
+  return readChangesFile('growthbook.json');
+}
+
+// Demo-only sources (written by generate-demo-data.js):
+function readTinacmsChanges()    { return readChangesFile('tinacms.json'); }
+function readOptimizelyChanges() { return readChangesFile('optimizely.json'); }
+
+// GA4 has a different shape: { urls: { <url>: { views, users, ... } } }.
+// Returns the urls object, or {} if missing/errored.
+function readGa4Metrics() {
+  const p = path.join(RAW_DIR, 'ga4.json');
+  if (!fs.existsSync(p)) return {};
+  try {
+    const data = JSON.parse(fs.readFileSync(p, 'utf8'));
+    if (data.error) console.error(`ga4.json reports error: ${data.error}`);
+    return (data && data.urls) || {};
+  } catch (e) {
+    console.error(`Failed to parse ga4.json: ${e.message}`);
+    return {};
+  }
+}
+
+function readChangesFile(filename) {
+  const p = path.join(RAW_DIR, filename);
+  if (!fs.existsSync(p)) return [];
+  try {
+    const data = JSON.parse(fs.readFileSync(p, 'utf8'));
+    if (data.error) {
+      console.error(`${filename} reports error: ${data.error}`);
+    }
+    return Array.isArray(data.items) ? data.items : [];
+  } catch (e) {
+    console.error(`Failed to parse ${filename}: ${e.message}`);
+    return [];
+  }
+}
+
 function updateIndex(snapshotId, capturedAt) {
   const indexPath = path.join(SNAPSHOTS_DIR, 'index.json');
   let idx = [];
@@ -200,7 +245,23 @@ function updateIndex(snapshotId, capturedAt) {
   const capturedAt = allTimes[0] || new Date().toISOString();
 
   const commits = readChanges();
-  const snapshot = { id: SNAPSHOT_ID, capturedAt, commits, mobile, desktop };
+  const wordpress = readWordPressChanges();
+  const growthbook = readGrowthBookChanges();
+  const tinacms = readTinacmsChanges();
+  const optimizely = readOptimizelyChanges();
+  const ga4 = readGa4Metrics();
+  const snapshot = {
+    id: SNAPSHOT_ID,
+    capturedAt,
+    commits,
+    wordpress,
+    growthbook,
+    tinacms,
+    optimizely,
+    ga4,
+    mobile,
+    desktop,
+  };
   const outPath = path.join(SNAPSHOTS_DIR, `${SNAPSHOT_ID}.json`);
   fs.writeFileSync(outPath, JSON.stringify(snapshot, null, 2) + '\n');
   console.log(`Wrote ${outPath} (${(fs.statSync(outPath).size / 1024).toFixed(1)} KB)`);
@@ -213,5 +274,10 @@ function updateIndex(snapshotId, capturedAt) {
   console.log('\nSummary:');
   console.log(`  Mobile  perf=${avg(mobile, 'performance')}  a11y=${avg(mobile, 'accessibility')}  bp=${avg(mobile, 'bestPractices')}  seo=${avg(mobile, 'seo')}`);
   console.log(`  Desktop perf=${avg(desktop, 'performance')}  a11y=${avg(desktop, 'accessibility')}  bp=${avg(desktop, 'bestPractices')}  seo=${avg(desktop, 'seo')}`);
-  console.log(`  Commits in window: ${commits.length}`);
+  console.log(`  Commits in window:  ${commits.length}`);
+  console.log(`  WP changes:         ${wordpress.length}`);
+  console.log(`  GB experiments:     ${growthbook.length}`);
+  console.log(`  TinaCMS edits:      ${tinacms.length}`);
+  console.log(`  Optimizely:         ${optimizely.length}`);
+  console.log(`  GA4 URLs tracked:   ${Object.keys(ga4).length}`);
 })();

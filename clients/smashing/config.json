@@ -4,6 +4,18 @@
   "baseUrl": "https://www.smashingmagazine.com",
   "logoFile": "logo.svg",
   "repo": "Ambar4/smashing-demo-changes",
+  "demoMode": true,
+  "tinacms": {
+    "enabled": true,
+    "label": "TinaCMS"
+  },
+  "optimizely": {
+    "enabled": true,
+    "label": "Optimizely"
+  },
+  "ga4": {
+    "enabled": true
+  },
   "urls": [
     "https://www.smashingmagazine.com/",
     "https://www.smashingmagazine.com/articles/",

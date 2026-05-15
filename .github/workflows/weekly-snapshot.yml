@@ -34,6 +34,15 @@ jobs:
           SOURCE_REPO_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
         run: ./scripts/fetch-changes.sh ${{ matrix.client }}
 
+      - name: Fetch WordPress changes
+        run: node scripts/fetch-wp-changes.js ${{ matrix.client }}
+
+      - name: Fetch GrowthBook changes
+        run: node scripts/fetch-gb-changes.js ${{ matrix.client }}
+
+      - name: Generate demo data (TinaCMS, Optimizely, GA4)
+        run: node scripts/generate-demo-data.js ${{ matrix.client }}
+
       - name: Fetch PSI scores + build snapshot
         env:
           PSI_API_KEY: ${{ secrets.PSI_API_KEY }}

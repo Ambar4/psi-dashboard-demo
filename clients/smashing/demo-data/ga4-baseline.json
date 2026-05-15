@@ -1,0 +1,65 @@
+{
+  "_comment": "Illustrative GA4 per-URL baselines for the public demo. Numbers represent rough weekly volume for a high-traffic editorial site (Smashing Magazine scale). generate-demo-data.js applies a deterministic per-snapshot random walk (±5-15%) so week-over-week deltas look organic. engagementMs is milliseconds; keyEvents is the conversion proxy (newsletter signups, book purchases, etc).",
+  "urls": {
+    "https://www.smashingmagazine.com/": {
+      "views": 58000,
+      "users": 42000,
+      "engagementMs": 38000,
+      "keyEvents": 187
+    },
+    "https://www.smashingmagazine.com/articles/": {
+      "views": 31000,
+      "users": 24500,
+      "engagementMs": 72000,
+      "keyEvents": 94
+    },
+    "https://www.smashingmagazine.com/category/css/": {
+      "views": 14500,
+      "users": 11200,
+      "engagementMs": 95000,
+      "keyEvents": 52
+    },
+    "https://www.smashingmagazine.com/category/javascript/": {
+      "views": 12300,
+      "users": 9700,
+      "engagementMs": 102000,
+      "keyEvents": 48
+    },
+    "https://www.smashingmagazine.com/category/performance/": {
+      "views": 8200,
+      "users": 6800,
+      "engagementMs": 118000,
+      "keyEvents": 41
+    },
+    "https://www.smashingmagazine.com/category/accessibility/": {
+      "views": 6900,
+      "users": 5700,
+      "engagementMs": 124000,
+      "keyEvents": 38
+    },
+    "https://www.smashingmagazine.com/membership/": {
+      "views": 4200,
+      "users": 3600,
+      "engagementMs": 156000,
+      "keyEvents": 73
+    },
+    "https://www.smashingmagazine.com/printed-books/": {
+      "views": 3800,
+      "users": 3200,
+      "engagementMs": 142000,
+      "keyEvents": 81
+    },
+    "https://www.smashingmagazine.com/online-workshops/": {
+      "views": 2400,
+      "users": 2000,
+      "engagementMs": 168000,
+      "keyEvents": 34
+    },
+    "https://www.smashingmagazine.com/the-smashing-newsletter/": {
+      "views": 5600,
+      "users": 4800,
+      "engagementMs": 64000,
+      "keyEvents": 142
+    }
+  }
+}

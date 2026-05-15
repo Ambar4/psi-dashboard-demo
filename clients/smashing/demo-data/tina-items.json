@@ -1,0 +1,41 @@
+{
+  "_comment": "Illustrative TinaCMS edits for the public demo. Dates are assigned at snapshot time by generate-demo-data.js so the items appear in the current snapshot window. urlPath maps to one of the URLs in config.urls; the public link is built from baseUrl + urlPath.",
+  "items": [
+    {
+      "title": "Smashing Membership: 2026 tier updates",
+      "author": "Vitaly Friedman",
+      "type": "tina-page",
+      "urlPath": "/membership/"
+    },
+    {
+      "title": "CSS category: featured articles refresh",
+      "author": "Cosima Mielke",
+      "type": "tina-page",
+      "urlPath": "/category/css/"
+    },
+    {
+      "title": "Printed Books page: 3 new titles added",
+      "author": "Iris Lješnjanin",
+      "type": "tina-page",
+      "urlPath": "/printed-books/"
+    },
+    {
+      "title": "Workshops: June 2026 schedule update",
+      "author": "Editorial Team",
+      "type": "tina-page",
+      "urlPath": "/online-workshops/"
+    },
+    {
+      "title": "Newsletter archive: Issue #421 published",
+      "author": "Editorial Team",
+      "type": "tina-post",
+      "urlPath": "/the-smashing-newsletter/"
+    },
+    {
+      "title": "Accessibility category: WCAG 2.2 guide added",
+      "author": "Editorial Team",
+      "type": "tina-page",
+      "urlPath": "/category/accessibility/"
+    }
+  ]
+}
