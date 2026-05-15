@@ -1,41 +1,77 @@
 {
-  "_comment": "Illustrative TinaCMS edits for the public demo. Dates are assigned at snapshot time by generate-demo-data.js so the items appear in the current snapshot window. urlPath maps to one of the URLs in config.urls; the public link is built from baseUrl + urlPath.",
+  "_comment": "Illustrative TinaCMS edits for the public demo. Dates are assigned at snapshot time by generate-demo-data.js so the items appear in the current snapshot window. urlPath maps to one of the URLs in config.urls; the public link is built from baseUrl + urlPath. Scores (0-100) are pre-authored per item; the dashboard renders them in score order, color-coded by direction tag, with drivers shown on hover.",
   "items": [
     {
       "title": "Smashing Membership: 2026 tier updates",
       "author": "Vitaly Friedman",
       "type": "tina-page",
-      "urlPath": "/membership/"
+      "urlPath": "/membership/",
+      "scores": {
+        "speed":      { "value": 28, "direction": "Neutral" },
+        "traffic":    { "value": 35, "direction": "Neutral" },
+        "conversion": { "value": 72, "direction": "+Conv" }
+      },
+      "drivers": ["pricing-adjacent page", "tier definition update", "primary nav reachable"]
     },
     {
       "title": "CSS category: featured articles refresh",
       "author": "Cosima Mielke",
       "type": "tina-page",
-      "urlPath": "/category/css/"
+      "urlPath": "/category/css/",
+      "scores": {
+        "speed":      { "value": 18, "direction": "Neutral" },
+        "traffic":    { "value": 70, "direction": "+Traffic" },
+        "conversion": { "value": 22, "direction": "Neutral" }
+      },
+      "drivers": ["category page update", "new internal linking", "high-traffic landing page"]
     },
     {
       "title": "Printed Books page: 3 new titles added",
       "author": "Iris Lješnjanin",
       "type": "tina-page",
-      "urlPath": "/printed-books/"
+      "urlPath": "/printed-books/",
+      "scores": {
+        "speed":      { "value": 38, "direction": "-Perf" },
+        "traffic":    { "value": 55, "direction": "+Traffic" },
+        "conversion": { "value": 68, "direction": "+Conv" }
+      },
+      "drivers": ["new product images", "purchase intent page", "new indexed content"]
     },
     {
       "title": "Workshops: June 2026 schedule update",
       "author": "Editorial Team",
       "type": "tina-page",
-      "urlPath": "/online-workshops/"
+      "urlPath": "/online-workshops/",
+      "scores": {
+        "speed":      { "value": 12, "direction": "Neutral" },
+        "traffic":    { "value": 45, "direction": "+Traffic" },
+        "conversion": { "value": 58, "direction": "+Conv" }
+      },
+      "drivers": ["fresh dated content", "purchase intent page", "limited audience"]
     },
     {
       "title": "Newsletter archive: Issue #421 published",
       "author": "Editorial Team",
       "type": "tina-post",
-      "urlPath": "/the-smashing-newsletter/"
+      "urlPath": "/the-smashing-newsletter/",
+      "scores": {
+        "speed":      { "value": 22, "direction": "Neutral" },
+        "traffic":    { "value": 78, "direction": "+Traffic" },
+        "conversion": { "value": 32, "direction": "Neutral" }
+      },
+      "drivers": ["new indexed content", "newsletter promotion adjacent", "social shareable"]
     },
     {
       "title": "Accessibility category: WCAG 2.2 guide added",
       "author": "Editorial Team",
       "type": "tina-page",
-      "urlPath": "/category/accessibility/"
+      "urlPath": "/category/accessibility/",
+      "scores": {
+        "speed":      { "value": 25, "direction": "Neutral" },
+        "traffic":    { "value": 65, "direction": "+Traffic" },
+        "conversion": { "value": 18, "direction": "Neutral" }
+      },
+      "drivers": ["new indexed content", "category page update", "SEO-relevant topic"]
     }
   ]
 }

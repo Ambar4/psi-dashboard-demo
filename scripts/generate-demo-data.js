@@ -127,6 +127,11 @@ function generateTinaItems() {
     author: item.author,
     url: BASE_URL + (item.urlPath || '/'),
     status: 'publish',
+    // Activity impact scoring (optional). Passed through from the static
+    // template so the dashboard can render Speed / Traffic / Conversion
+    // likelihood per item.
+    scores: item.scores || null,
+    drivers: Array.isArray(item.drivers) ? item.drivers : [],
   })).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 }
 
@@ -150,6 +155,8 @@ function generateOptimizelyItems() {
     hypothesis: item.hypothesis,
     status: item.status,
     reason: item.reason || 'updated',
+    scores: item.scores || null,
+    drivers: Array.isArray(item.drivers) ? item.drivers : [],
   })).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 }
 

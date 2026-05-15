@@ -1,40 +1,70 @@
 {
-  "_comment": "Illustrative Optimizely experiments for the public demo. Hypotheses focused on newsletter signup conversion and book purchase outcomes. Dates and reason labels are assigned at snapshot time so the activity ladder shows variety (started/stopped/updated/created).",
+  "_comment": "Illustrative Optimizely experiments for the public demo. Hypotheses focused on newsletter signup conversion and book purchase outcomes. Dates and reason labels are assigned at snapshot time so the activity ladder shows variety (started/stopped/updated/created). Scores (0-100) are pre-authored per item; the dashboard renders them in score order, color-coded by direction tag, with drivers shown on hover.",
   "items": [
     {
       "title": "Newsletter signup: above-the-fold vs sidebar placement",
       "author": "growth@smashing",
       "hypothesis": "Moving the newsletter signup form above the fold on article pages will increase conversion rate by 25% over the current sidebar placement.",
       "status": "running",
-      "reason": "started"
+      "reason": "started",
+      "scores": {
+        "speed":      { "value": 70, "direction": "-Perf" },
+        "traffic":    { "value": 18, "direction": "Neutral" },
+        "conversion": { "value": 91, "direction": "+Conv" }
+      },
+      "drivers": ["above-the-fold placement", "active experiment", "exact page match"]
     },
     {
       "title": "Book bundle pricing: $39 vs $49",
       "author": "growth@smashing",
       "hypothesis": "Lowering the 3-book bundle price from $49 to $39 will increase units sold per visitor by 15% even after the per-book revenue drop.",
       "status": "running",
-      "reason": "updated"
+      "reason": "updated",
+      "scores": {
+        "speed":      { "value": 8,  "direction": "Neutral" },
+        "traffic":    { "value": 12, "direction": "Neutral" },
+        "conversion": { "value": 94, "direction": "Mixed" }
+      },
+      "drivers": ["pricing change", "active experiment", "purchase intent page"]
     },
     {
       "title": "Article CTA: \"Read More\" vs \"Continue Reading\"",
       "author": "experiments@smashing",
       "hypothesis": "Changing the article-continue button text from 'Read More' to 'Continue Reading' will reduce ambiguity and increase click-through on category pages by 8%.",
       "status": "stopped",
-      "reason": "stopped"
+      "reason": "stopped",
+      "scores": {
+        "speed":      { "value": 5,  "direction": "Neutral" },
+        "traffic":    { "value": 22, "direction": "Neutral" },
+        "conversion": { "value": 65, "direction": "+Conv" }
+      },
+      "drivers": ["CTA copy change", "high category-page exposure", "stopped variant"]
     },
     {
       "title": "Membership upsell: post-purchase modal vs email",
       "author": "growth@smashing",
       "hypothesis": "Showing a Smashing Membership upsell modal after book checkout will convert at 3x the rate of the current post-purchase email sequence.",
       "status": "running",
-      "reason": "started"
+      "reason": "started",
+      "scores": {
+        "speed":      { "value": 35, "direction": "-Perf" },
+        "traffic":    { "value": 8,  "direction": "Neutral" },
+        "conversion": { "value": 88, "direction": "+Conv" }
+      },
+      "drivers": ["post-checkout modal", "high-intent moment", "active experiment"]
     },
     {
       "title": "Free chapter preview: download vs in-browser reader",
       "author": "experiments@smashing",
       "hypothesis": "Replacing the 'Download free chapter' CTA with an in-browser preview reader will increase book purchase rate within 24 hours by 12%.",
       "status": "draft",
-      "reason": "created"
+      "reason": "created",
+      "scores": {
+        "speed":      { "value": 55, "direction": "-Perf" },
+        "traffic":    { "value": 10, "direction": "Neutral" },
+        "conversion": { "value": 80, "direction": "+Conv" }
+      },
+      "drivers": ["in-browser reader assets", "book purchase flow", "draft (not exposed)"]
     }
   ]
 }

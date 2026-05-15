@@ -426,6 +426,48 @@ details[open] > .changes-header { margin-bottom: 10px; }
 .changes-meta a { color: #999; text-decoration: none; }
 .changes-meta a:hover { color: #1a73e8; text-decoration: underline; }
 
+/* .changes-item wraps each row + its activity-scores block. The .changes-list
+   gap then applies between items, not within them, so scores hug their row. */
+.changes-item { display: flex; flex-direction: column; }
+
+/* Activity impact scoring: 3 mini-pills inline below the row. Hover reveals
+   drivers via the native title tooltip. */
+.activity-scores {
+  padding-left: 68px;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  font-size: 11px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  cursor: help;
+}
+.activity-scores .score-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.activity-scores .slbl { color: #888; }
+.activity-scores .sval { font-weight: 600; color: #333; }
+.activity-scores .stag { font-weight: 500; }
+.activity-scores .stag.up-conv,
+.activity-scores .stag.up-traffic,
+.activity-scores .stag.up-speed { color: #0a7c3e; }
+.activity-scores .stag.down-conv,
+.activity-scores .stag.down-traffic,
+.activity-scores .stag.down-perf { color: #cc2a20; }
+.activity-scores .stag.mixed { color: #a26100; }
+.activity-scores .stag.neutral { color: #999; font-weight: 400; }
+.activity-scores .score-sep { color: #ccc; }
+.activity-scores .activity-scores-cue {
+  font-size: 11px;
+  color: #aaa;
+  margin-left: 2px;
+}
+.activity-scores:hover .activity-scores-cue { color: #1a73e8; }
+
 .changes-tabs {
   display: inline-flex;
   background: #ececef;
@@ -1090,6 +1132,52 @@ let activeChangesTab = (function () {
 // Capitalize the first letter; leave the rest. "started" -> "Started".
 function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
 
+// Map a direction tag (e.g. "+Conv", "-Perf", "Mixed", "Neutral") to a CSS
+// class used to color the pill in .activity-scores.
+function directionCss(dir) {
+  switch (dir) {
+    case '+Conv':    return 'up-conv';
+    case '-Conv':    return 'down-conv';
+    case '+Traffic': return 'up-traffic';
+    case '-Traffic': return 'down-traffic';
+    case '+Speed':   return 'up-speed';
+    case '-Perf':    return 'down-perf';
+    case 'Mixed':    return 'mixed';
+    default:         return 'neutral';
+  }
+}
+
+// Render the 3-pill activity scores block under a row. Pills are ordered by
+// score value (highest first) so the primary impact reads first. Drivers
+// are rolled into a single native title attribute so hovering anywhere on
+// the line shows the full list.
+function scoresBlock(c) {
+  if (!c || !c.scores) return '';
+  const { speed, traffic, conversion } = c.scores;
+  if (!speed || !traffic || !conversion) return '';
+  const ordered = [
+    { label: 'Speed',   s: speed      },
+    { label: 'Traffic', s: traffic    },
+    { label: 'Conv',    s: conversion },
+  ].sort((a, b) => b.s.value - a.s.value);
+  const pills = ordered.map(o => {
+    const cls = directionCss(o.s.direction);
+    return '<span class="score-pill">' +
+      '<span class="slbl">' + o.label + '</span>' +
+      '<span class="sval">' + o.s.value + '</span>' +
+      '<span class="stag ' + cls + '">' + escapeHtml(o.s.direction) + '</span>' +
+    '</span>';
+  }).join('<span class="score-sep">&middot;</span>');
+  const driverText = Array.isArray(c.drivers) && c.drivers.length
+    ? 'Drivers: ' + c.drivers.join(' · ')
+    : '';
+  const tipAttr = driverText ? ' title="' + escapeHtml(driverText) + '"' : '';
+  const cue = driverText
+    ? '<span class="activity-scores-cue">&#9432;</span>'
+    : '';
+  return '<div class="activity-scores"' + tipAttr + '>' + pills + cue + '</div>';
+}
+
 // Per-item row renderer. Branches on c.type so GitHub PRs/commits, WordPress
 // pages/posts/templates, and GrowthBook experiments render with the right meta.
 function changeRow(c) {
@@ -1140,10 +1228,13 @@ function changeRow(c) {
   } else {
     meta = c.author ? 'by ' + escapeHtml(c.author) : '';
   }
-  return '<div class="changes-row">' +
-    '<div class="changes-date">' + date + '</div>' +
-    '<div class="changes-title">' + titleHtml + '</div>' +
-    '<div class="changes-meta">' + meta + '</div>' +
+  return '<div class="changes-item">' +
+    '<div class="changes-row">' +
+      '<div class="changes-date">' + date + '</div>' +
+      '<div class="changes-title">' + titleHtml + '</div>' +
+      '<div class="changes-meta">' + meta + '</div>' +
+    '</div>' +
+    scoresBlock(c) +
   '</div>';
 }
 
