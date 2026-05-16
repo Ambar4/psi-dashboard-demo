@@ -373,6 +373,102 @@ select {
 .demo-banner strong { color: #3d2e00; }
 .trend-marker { cursor: pointer; }
 .trend-marker:hover { opacity: 0.65; }
+
+/* Rich card-style tooltip for trend chart markers. Shows source + date in the
+   header and a list of the cluster's items (title, author, primary score). */
+.trend-tooltip {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  margin-top: -10px;
+  background: #1e1e24;
+  color: #f5f5f7;
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.32);
+  padding: 12px 14px;
+  min-width: 260px;
+  max-width: 380px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  z-index: 1000;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.trend-tooltip.visible { opacity: 1; }
+.trend-tooltip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.trend-tooltip-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 600;
+  font-size: 12px;
+}
+.trend-tooltip-swatch {
+  width: 9px;
+  height: 9px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.trend-tooltip-swatch.circle  { border-radius: 50%; }
+.trend-tooltip-swatch.diamond { transform: rotate(45deg); }
+.trend-tooltip-count {
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+  margin-left: 2px;
+}
+.trend-tooltip-date {
+  color: rgba(255,255,255,0.55);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.trend-tooltip-item {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.trend-tooltip-item:last-child { border-bottom: none; padding-bottom: 0; }
+.trend-tooltip-item:first-child { padding-top: 0; }
+.trend-tooltip-item-title {
+  font-weight: 500;
+  color: #f5f5f7;
+  margin-bottom: 2px;
+}
+.trend-tooltip-item-meta {
+  color: rgba(255,255,255,0.55);
+  font-size: 11px;
+}
+.trend-tooltip-item-score {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+}
+.trend-tooltip-item-score .sval { font-weight: 600; color: #f5f5f7; }
+.trend-tooltip-item-score .stag { font-weight: 500; }
+.trend-tooltip-item-score .stag.up-conv,
+.trend-tooltip-item-score .stag.up-traffic,
+.trend-tooltip-item-score .stag.up-speed { color: #5cd394; }
+.trend-tooltip-item-score .stag.down-conv,
+.trend-tooltip-item-score .stag.down-traffic,
+.trend-tooltip-item-score .stag.down-perf { color: #ff7e76; }
+.trend-tooltip-item-score .stag.mixed { color: #f3a64b; }
+.trend-tooltip-item-score .stag.neutral { color: rgba(255,255,255,0.5); }
+.trend-tooltip-more {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+  text-align: center;
+}
 .trend-axis-label { fill: #999; font-size: 10px; }
 
 .changes-section {
@@ -946,6 +1042,10 @@ const SOURCE_SHAPE = {
 // whose size scales with the count. Tooltip lists the cluster contents.
 function trendDayKey(iso) { return iso ? iso.slice(0, 10) : ''; }
 
+// Populated by renderTrendChart on every render. Hover handler reads from this
+// to render the rich marker tooltip with per-item details.
+let TREND_CLUSTERS = {};
+
 function renderTrendChart() {
   if (!CONFIG || SNAPSHOT_INDEX.length === 0) return '';
 
@@ -1028,16 +1128,22 @@ function renderTrendChart() {
       '" text-anchor="middle">' + label + '</text>';
   }).join('');
 
-  // 6) Collect all change events across snapshots. Each source-tagged.
+  // 6) Collect all change events across snapshots. Each source-tagged. Keep
+  // enough fields per event to render rich hover tooltips (title, author,
+  // scores) without needing a second lookup.
   const events = [];
+  const captureCommon = (src, c) => ({
+    src, date: c.date, title: c.title,
+    author: c.author || '', scores: c.scores || null,
+  });
   for (const s of SNAPSHOT_INDEX) {
     const snap = SNAPSHOT_DATA[s.id];
     if (!snap) continue;
-    for (const c of (snap.commits    || [])) events.push({ src: 'github',     date: c.date, title: c.title });
-    for (const c of (snap.wordpress  || [])) events.push({ src: 'wordpress',  date: c.date, title: c.title });
-    for (const c of (snap.tinacms    || [])) events.push({ src: 'tinacms',    date: c.date, title: c.title });
-    for (const c of (snap.growthbook || [])) events.push({ src: 'growthbook', date: c.date, title: c.title });
-    for (const c of (snap.optimizely || [])) events.push({ src: 'optimizely', date: c.date, title: c.title });
+    for (const c of (snap.commits    || [])) events.push({ ...captureCommon('github', c), number: c.number, sha: c.sha });
+    for (const c of (snap.wordpress  || [])) events.push(captureCommon('wordpress', c));
+    for (const c of (snap.tinacms    || [])) events.push(captureCommon('tinacms', c));
+    for (const c of (snap.growthbook || [])) events.push({ ...captureCommon('growthbook', c), reason: c.reason });
+    for (const c of (snap.optimizely || [])) events.push({ ...captureCommon('optimizely', c), reason: c.reason });
   }
   // Apply the same "current snapshot window" floor that the Changes section
   // uses, so the trend chart's markers and legend reflect just events that
@@ -1059,17 +1165,16 @@ function renderTrendChart() {
     if (!clusters[key]) clusters[key] = { src: ev.src, day: trendDayKey(ev.date), items: [] };
     clusters[key].items.push(ev);
   }
-  const markers = Object.values(clusters).map(cl => {
+  // Expose for the hover handler (rich tooltip looks up cluster details by id).
+  TREND_CLUSTERS = clusters;
+
+  const markers = Object.entries(clusters).map(([clusterId, cl]) => {
     const x = xFromIso(cl.day + 'T12:00:00Z');
     const y = rowYFor(cl.src);
     const count = cl.items.length;
     const r = Math.min(6.5, 2.6 + Math.sqrt(count) * 0.9);  // 1 -> ~3.5, 14 -> ~6
     const fill = SOURCE_COLORS[cl.src];
     const shapeKind = SOURCE_SHAPE[cl.src] || 'circle';
-    const labelTitle = count === 1
-      ? cl.items[0].title || '(untitled)'
-      : count + ' items';
-    const label = SOURCE_LABELS[cl.src] + ' ' + cl.day + ': ' + labelTitle;
     let shape;
     if (shapeKind === 'circle') {
       shape = '<circle cx="' + x.toFixed(1) + '" cy="' + y + '" r="' + r.toFixed(1) +
@@ -1089,8 +1194,12 @@ function renderTrendChart() {
       ].join(' ');
       shape = '<polygon points="' + pts + '" fill="' + fill + '"/>';
     }
-    return '<g class="trend-marker" data-label="' + escapeHtml(label) +
-      '" data-source="' + cl.src + '">' + shape + '</g>';
+    // Transparent 10px circle as a generous hit zone -- 3-6px shapes alone
+    // are hard to hover precisely.
+    const hitZone = '<circle cx="' + x.toFixed(1) + '" cy="' + y +
+      '" r="10" fill="transparent"/>';
+    return '<g class="trend-marker" data-cluster-id="' + escapeHtml(clusterId) +
+      '" data-source="' + cl.src + '">' + hitZone + shape + '</g>';
   }).join('');
 
   // 8) Legend with counts. Hide sources the client doesn't have enabled.
@@ -1137,6 +1246,75 @@ let activeChangesTab = (function () {
 
 // Capitalize the first letter; leave the rest. "started" -> "Started".
 function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+// Build the rich card tooltip HTML for a trend chart marker cluster.
+// Shows source label with matching shape swatch + date in the header, then a
+// list of items (title, author, primary score). Capped at 5 visible with a
+// "+N more" footer.
+function renderTrendTooltip(cluster) {
+  if (!cluster) return '';
+  const src = cluster.src;
+  const color = SOURCE_COLORS[src] || '#888';
+  const shape = SOURCE_SHAPE[src] || 'circle';
+  const label = SOURCE_LABELS[src] || src;
+  const count = cluster.items.length;
+  const swatchStyle = ' style="background:' + color + ';"';
+  const swatch = '<span class="trend-tooltip-swatch ' + shape + '"' + swatchStyle + '></span>';
+  const dateStr = (function () {
+    try {
+      const [y, m, d] = cluster.day.split('-').map(Number);
+      return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+      });
+    } catch (e) { return cluster.day; }
+  })();
+
+  const header = '<div class="trend-tooltip-header">' +
+    '<div class="trend-tooltip-source">' + swatch + label +
+      '<span class="trend-tooltip-count">&middot; ' + count + ' item' +
+      (count === 1 ? '' : 's') + '</span></div>' +
+    '<div class="trend-tooltip-date">' + dateStr + '</div>' +
+  '</div>';
+
+  const MAX_SHOW = 5;
+  const rows = cluster.items.slice(0, MAX_SHOW).map(item => {
+    const title = escapeHtml(item.title || '(untitled)');
+    let metaParts = [];
+    if (item.author) metaParts.push('by ' + escapeHtml(item.author));
+    if (item.number) metaParts.push('#' + item.number);
+    if (item.reason) metaParts.push(capitalize(item.reason));
+    const metaHtml = metaParts.length
+      ? '<div class="trend-tooltip-item-meta">' + metaParts.join(' &middot; ') + '</div>'
+      : '';
+    let scoreHtml = '';
+    if (item.scores) {
+      // Show the highest-scoring dimension only -- the primary impact.
+      const ordered = [
+        { label: 'Speed',   s: item.scores.speed      },
+        { label: 'Traffic', s: item.scores.traffic    },
+        { label: 'Conv',    s: item.scores.conversion },
+      ].filter(x => x.s).sort((a, b) => b.s.value - a.s.value);
+      if (ordered[0]) {
+        const top = ordered[0];
+        const cls = directionCss(top.s.direction);
+        scoreHtml = '<div class="trend-tooltip-item-score">' +
+          top.label + ' <span class="sval">' + top.s.value + '</span> ' +
+          '<span class="stag ' + cls + '">' + escapeHtml(top.s.direction) + '</span>' +
+        '</div>';
+      }
+    }
+    return '<div class="trend-tooltip-item">' +
+      '<div class="trend-tooltip-item-title">' + title + '</div>' +
+      metaHtml + scoreHtml +
+    '</div>';
+  }).join('');
+
+  const more = count > MAX_SHOW
+    ? '<div class="trend-tooltip-more">+ ' + (count - MAX_SHOW) + ' more in this cluster</div>'
+    : '';
+
+  return header + rows + more;
+}
 
 // Map a direction tag (e.g. "+Conv", "-Perf", "Mixed", "Neutral") to a CSS
 // class used to color the pill in .activity-scores.
@@ -1671,22 +1849,45 @@ document.getElementById('changes').addEventListener('click', e => {
   render();
 });
 
-// Trend chart tooltip: reuse the shared spark-tooltip element. Covers both
-// snapshot dots (.spark-dot) and source markers (.trend-marker).
+// Rich card-style tooltip for trend chart markers. Separate element from the
+// shared spark-tooltip so the two can render simultaneously without fighting.
+const trendTip = document.createElement('div');
+trendTip.className = 'trend-tooltip';
+document.body.appendChild(trendTip);
+
+// Trend chart hover: markers get the rich card tooltip; snapshot dots keep
+// the existing simple text tooltip (they only need date + score).
 document.getElementById('trend').addEventListener('mouseover', e => {
-  const target = e.target.closest('.trend-marker, .spark-dot');
-  if (!target) return;
-  const label = target.dataset.label;
+  const marker = e.target.closest('.trend-marker');
+  if (marker) {
+    const cluster = TREND_CLUSTERS[marker.dataset.clusterId];
+    if (cluster) {
+      trendTip.innerHTML = renderTrendTooltip(cluster);
+      // Anchor to the visible shape (last child); the transparent hit zone is
+      // intentionally bigger than the shape, so positioning to the hit zone
+      // would float the tip too far up.
+      const visible = marker.querySelector('circle:last-child, rect, polygon') || marker;
+      const rect = visible.getBoundingClientRect();
+      trendTip.style.left = (rect.left + rect.width / 2) + 'px';
+      trendTip.style.top = rect.top + 'px';
+      trendTip.classList.add('visible');
+      return;
+    }
+  }
+  const dot = e.target.closest('.spark-dot');
+  if (!dot) return;
+  const label = dot.dataset.label;
   if (!label) return;
   sparkTip.textContent = label;
-  const visible = target.querySelector('.dot-visible') || target.querySelector('circle, rect, polygon');
-  const rect = (visible || target).getBoundingClientRect();
+  const visible = dot.querySelector('.dot-visible') || dot;
+  const rect = visible.getBoundingClientRect();
   sparkTip.style.left = (rect.left + rect.width / 2) + 'px';
   sparkTip.style.top = rect.top + 'px';
   sparkTip.classList.add('visible');
 });
 document.getElementById('trend').addEventListener('mouseout', e => {
-  if (e.target.closest('.trend-marker, .spark-dot')) sparkTip.classList.remove('visible');
+  if (e.target.closest('.trend-marker')) trendTip.classList.remove('visible');
+  if (e.target.closest('.spark-dot')) sparkTip.classList.remove('visible');
 });
 
 // Sparkline hover tooltip: one shared element, positioned to whichever dot is hovered.
