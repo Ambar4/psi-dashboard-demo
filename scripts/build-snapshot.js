@@ -11,6 +11,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { scoreItem } = require('./score-activity');
 
 const SCRIPT_DIR = __dirname;
 const ROOT_DIR = path.dirname(SCRIPT_DIR);
@@ -244,11 +245,19 @@ function updateIndex(snapshotId, capturedAt) {
     .sort();
   const capturedAt = allTimes[0] || new Date().toISOString();
 
-  const commits = readChanges();
-  const wordpress = readWordPressChanges();
-  const growthbook = readGrowthBookChanges();
-  const tinacms = readTinacmsChanges();
-  const optimizely = readOptimizelyChanges();
+  // Pre-authored scores (from demo static data) win over inference. For LHC
+  // sources, items don't carry pre-authored scores so the inference fills in.
+  const maybeScore = (item) => {
+    if (!item || (item.scores && item.scores.speed)) return item;
+    const result = scoreItem(item);
+    return { ...item, scores: result.scores, drivers: result.drivers };
+  };
+
+  const commits = readChanges().map(maybeScore);
+  const wordpress = readWordPressChanges().map(maybeScore);
+  const growthbook = readGrowthBookChanges().map(maybeScore);
+  const tinacms = readTinacmsChanges().map(maybeScore);
+  const optimizely = readOptimizelyChanges().map(maybeScore);
   const ga4 = readGa4Metrics();
   const snapshot = {
     id: SNAPSHOT_ID,
