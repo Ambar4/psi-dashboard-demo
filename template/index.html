@@ -1931,18 +1931,36 @@ function openReplay(urlIdx) {
   document.getElementById('replay-modal').hidden = false;
   showReplayMsg('Loading ' + activeStrategy + ' recording&hellip;', false);
 
-  // Snapshot-scoped path; fall back to flat path for back-compat.
-  const scoped = 'rrweb-recordings/' + currentSnapshotId + '/url-' + urlIdx + '-' + activeStrategy + '-rrweb.json';
-  const flatStrat = 'rrweb-recordings/url-' + urlIdx + '-' + activeStrategy + '-rrweb.json';
-  const flat = 'rrweb-recordings/url-' + urlIdx + '-rrweb.json';
+  // Try a few candidate paths in order. Cloudflare Pages can return 200 with
+  // the SPA-fallback HTML for missing files instead of a clean 404, which
+  // would cause r.json() to fail with "Unexpected token '<'" mid-chain. We
+  // validate Content-Type before parsing and fall through to the next path
+  // when the response isn't JSON.
+  const paths = [
+    'rrweb-recordings/' + currentSnapshotId + '/url-' + urlIdx + '-' + activeStrategy + '-rrweb.json',
+    'rrweb-recordings/url-' + urlIdx + '-' + activeStrategy + '-rrweb.json',
+    'rrweb-recordings/url-' + urlIdx + '-rrweb.json',
+  ];
+  const isJsonResponse = r => {
+    if (!r.ok) return false;
+    const ct = (r.headers.get('content-type') || '').toLowerCase();
+    return ct.includes('json') || ct.includes('text/plain');
+  };
+  const fetchFirstJson = async () => {
+    let lastDiag = '';
+    for (const p of paths) {
+      try {
+        const r = await fetch(p, { cache: 'no-cache' });
+        if (isJsonResponse(r)) return await r.json();
+        lastDiag = 'HTTP ' + r.status + ' content-type=' + (r.headers.get('content-type') || 'unknown');
+      } catch (e) {
+        lastDiag = e.message || 'fetch failed';
+      }
+    }
+    throw new Error('No replay file found (last: ' + lastDiag + ')');
+  };
 
-  fetch(scoped, { cache: 'no-cache' })
-    .then(r => r.ok ? r : fetch(flatStrat, { cache: 'no-cache' }))
-    .then(r => r.ok ? r : fetch(flat, { cache: 'no-cache' }))
-    .then(r => {
-      if (!r.ok) throw new Error('HTTP ' + r.status + ' fetching recording');
-      return r.json();
-    })
+  fetchFirstJson()
     .then(data => {
       if (!data.events || data.events.length < 2) {
         throw new Error('Recording is empty or has fewer than 2 events');
