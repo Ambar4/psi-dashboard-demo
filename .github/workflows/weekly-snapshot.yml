@@ -81,11 +81,22 @@ jobs:
             # --autostash handles any untracked or modified files that would
             # otherwise block the rebase. Multiple matrix jobs may also race
             # to push to main; retry loop handles non-fast-forward rejects.
+            #
+            # -X theirs (== prefer our local commit during rebase) auto-resolves
+            # conflicts on snapshot JSON when two workflow runs land the same
+            # date. Safe here because this step only ever touches
+            # clients/*/snapshots/, which are regenerated fresh each run; the
+            # later run always has the latest data.
             PUSHED=0
             for i in {1..5}; do
-              if git pull --rebase --autostash origin main && git push origin main; then
+              if git pull --rebase --autostash -X theirs origin main && git push origin main; then
                 PUSHED=1
                 break
+              fi
+              # If a rebase is mid-way (e.g. couldn't auto-resolve for some
+              # other reason), abort so the next retry starts clean.
+              if [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; then
+                git rebase --abort 2>/dev/null || true
               fi
               sleep 5
             done
