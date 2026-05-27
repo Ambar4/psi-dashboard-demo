@@ -1,0 +1,44 @@
+{
+  "_comment": "Illustrative GitHub PR pool for the Smashing demo. generate-demo-data.js picks one per snapshot deterministically (hash of snapshot date), rotates the date into the snapshot window, synthesizes a PR number incrementing weekly, and merges into changes.json. Pool covers ~6 months of weekly snapshots without repeats. Categories are advisory only -- the dashboard's inference engine scores each title independently. Each item: title, author, optional category tag for human reference.",
+  "items": [
+    { "title": "Lazy-load article hero images with loading=lazy", "author": "Cosima Mielke", "category": "speed" },
+    { "title": "Preload Mija.woff2 to fix font-flash on first paint", "author": "Ricardo Gimenes", "category": "speed" },
+    { "title": "Defer Google Tag Manager until first user interaction", "author": "Iris Lješnjanin", "category": "speed" },
+    { "title": "Replace Inter webfont with system font stack on category pages", "author": "Cosima Mielke", "category": "speed" },
+    { "title": "Inline critical CSS to improve LCP on homepage and /articles/", "author": "Ricardo Gimenes", "category": "speed" },
+    { "title": "Self-host CodePen embed loader (kill third-party blocking script)", "author": "Vitaly Friedman", "category": "speed" },
+    { "title": "Add fetchpriority=high to LCP hero image on homepage", "author": "Ricardo Gimenes", "category": "speed" },
+    { "title": "Compress printed-books hero PNG to WebP (saves ~320KB)", "author": "Iris Lješnjanin", "category": "speed" },
+    { "title": "Code-split article reader (reduce JS bundle by 180KB)", "author": "Ricardo Gimenes", "category": "speed" },
+    { "title": "Add CDN preconnect hints to reduce LCP on category pages", "author": "Cosima Mielke", "category": "speed" },
+
+    { "title": "Add JSON-LD Article schema to post template", "author": "Ricardo Gimenes", "category": "traffic" },
+    { "title": "Fix canonical URL on /category/* archive pages", "author": "Cosima Mielke", "category": "traffic" },
+    { "title": "Update sitemap.xml to include /online-workshops/ section", "author": "Editorial Team", "category": "traffic" },
+    { "title": "Generate Open Graph images for newsletter archive posts", "author": "Ricardo Gimenes", "category": "traffic" },
+    { "title": "Fix hreflang tags for translated CSS guides", "author": "Cosima Mielke", "category": "traffic" },
+    { "title": "Add internal linking widget to related-article sidebar", "author": "Iris Lješnjanin", "category": "traffic" },
+    { "title": "301 redirect deprecated /category/css3/ to /category/css/", "author": "Vitaly Friedman", "category": "traffic" },
+    { "title": "Improve breadcrumb structured data on tag pages", "author": "Ricardo Gimenes", "category": "traffic" },
+    { "title": "Add meta description fallback for author archive pages", "author": "Cosima Mielke", "category": "traffic" },
+
+    { "title": "Update CTA copy on /printed-books/ (Buy Now -> Get the bundle)", "author": "Iris Lješnjanin", "category": "conversion" },
+    { "title": "Add second newsletter signup form to article footer", "author": "Editorial Team", "category": "conversion" },
+    { "title": "Surface Smashing Membership upsell modal after book checkout", "author": "Vitaly Friedman", "category": "conversion" },
+    { "title": "Add trust badges (Stripe, Apple Pay) to checkout page", "author": "Iris Lješnjanin", "category": "conversion" },
+    { "title": "Test pricing tier display: monthly vs annual default", "author": "Vitaly Friedman", "category": "conversion" },
+    { "title": "Add online workshops schedule CTA to homepage hero", "author": "Cosima Mielke", "category": "conversion" },
+    { "title": "Fix form validation on /membership/ signup", "author": "Ricardo Gimenes", "category": "conversion" },
+    { "title": "Add testimonial carousel to membership landing page", "author": "Editorial Team", "category": "conversion" },
+
+    { "title": "Update primary navigation: surface /membership/ in main nav", "author": "Vitaly Friedman", "category": "mixed" },
+    { "title": "Refactor homepage hero: new CTA + reduced layout shift", "author": "Ricardo Gimenes", "category": "mixed" },
+    { "title": "Add cookie consent banner for EU compliance", "author": "Iris Lješnjanin", "category": "mixed" },
+    { "title": "Replace article header carousel with static featured grid", "author": "Cosima Mielke", "category": "mixed" },
+
+    { "title": "Bump Next.js to 15.2", "author": "Ricardo Gimenes", "category": "chore" },
+    { "title": "Fix typo in author bio component", "author": "Cosima Mielke", "category": "chore" },
+    { "title": "Refactor markdown renderer module", "author": "Ricardo Gimenes", "category": "chore" },
+    { "title": "Update CI Node version to 22", "author": "Iris Lješnjanin", "category": "chore" }
+  ]
+}

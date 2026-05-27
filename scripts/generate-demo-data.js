@@ -117,6 +117,62 @@ function readJsonIfExists(p) {
 
 // --- TinaCMS items --------------------------------------------------------
 
+// --- GitHub PRs (illustrative, weekly) -----------------------------------
+
+// Weeks since a fixed epoch, used to make PR numbers progress chronologically.
+function weeksSinceEpoch(snapshotId) {
+  const epoch = Date.UTC(2026, 0, 1);  // 2026-01-01
+  const [y, m, d] = snapshotId.split('-').map(Number);
+  const snap = Date.UTC(y, m - 1, d);
+  return Math.max(0, Math.floor((snap - epoch) / (7 * 86400000)));
+}
+
+// Pick one item from a pool deterministically based on a seed string.
+function pickFromPool(pool, seed) {
+  if (!Array.isArray(pool) || pool.length === 0) return null;
+  return pool[Math.floor(seededRandom(seed) * pool.length)];
+}
+
+function generateGithubPr() {
+  const src = readJsonIfExists(path.join(DEMO_DIR, 'github-prs.json'));
+  if (!src || !Array.isArray(src.items) || src.items.length === 0) return null;
+  const pick = pickFromPool(src.items, `${SNAPSHOT_ID}:github-pr`);
+  if (!pick) return null;
+  return {
+    type: 'pr',
+    title: pick.title,
+    date: dateInWindow(`${SNAPSHOT_ID}:github-pr:${pick.title}`),
+    author: pick.author,
+    // Link to the illustrative PR repo's /pulls list; the synthesized number
+    // wouldn't resolve to a real PR but the repo URL is real.
+    url: 'https://github.com/Ambar4/smashing-demo-changes/pulls',
+    number: 1247 + weeksSinceEpoch(SNAPSHOT_ID),
+  };
+}
+
+// Merge a synthesized GitHub PR into the existing changes.json that
+// fetch-changes.sh wrote earlier in the workflow. Preserves any real PRs
+// from smashing-demo-changes; just appends ours and re-sorts by date.
+function mergeIntoChangesJson(item) {
+  if (!item) return;
+  const changesPath = path.join(RAW_DIR, 'changes.json');
+  let payload = { items: [] };
+  if (fs.existsSync(changesPath)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(changesPath, 'utf8'));
+      if (data && Array.isArray(data.items)) payload.items = data.items;
+      if (data && data.error) payload.error = data.error;
+    } catch (e) {
+      console.error(`Failed to read existing changes.json: ${e.message}`);
+    }
+  }
+  // Don't duplicate if a same-titled item already exists.
+  if (payload.items.some(it => it.title === item.title)) return;
+  payload.items.push(item);
+  payload.items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  fs.writeFileSync(changesPath, JSON.stringify(payload, null, 2) + '\n');
+}
+
 function generateTinaItems() {
   const src = readJsonIfExists(path.join(DEMO_DIR, 'tina-items.json'));
   if (!src || !Array.isArray(src.items)) return [];
@@ -215,4 +271,17 @@ for (const [filename, payload] of Object.entries(outputs)) {
   const count = Array.isArray(payload.items) ? payload.items.length
               : (payload.urls ? Object.keys(payload.urls).length : 0);
   console.log(`  ${filename.padEnd(18)} ${count} item(s) -> ${outPath}`);
+}
+
+// Inject one illustrative GitHub PR into changes.json (written earlier by
+// fetch-changes.sh). Picked deterministically from the static pool so re-deploys
+// are stable for a given snapshot date. Pool of ~35 PRs cycles for ~6 months.
+if (cfg.repo) {
+  const pr = generateGithubPr();
+  if (pr) {
+    mergeIntoChangesJson(pr);
+    console.log(`  changes.json    injected illustrative PR #${pr.number}: "${pr.title.slice(0, 50)}${pr.title.length > 50 ? '...' : ''}"`);
+  } else {
+    console.log(`  changes.json    no illustrative PR (pool missing or empty)`);
+  }
 }
