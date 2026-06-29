@@ -1422,6 +1422,24 @@ function changeRow(c) {
   '</div>';
 }
 
+// Walk all snapshots up to and including the current one and concatenate
+// the named field's items. Mirrors what the trend chart already does, so
+// items captured in earlier snapshots (e.g. a WP edit on May 14 sitting in
+// the May 14 snapshot) still appear when comparing a much later snapshot
+// against a much earlier one.
+function collectAllChanges(fieldName, currentSnap) {
+  const items = [];
+  const curAt = (currentSnap && currentSnap.capturedAt) || '';
+  for (const s of SNAPSHOT_INDEX) {
+    const snap = SNAPSHOT_DATA[s.id];
+    if (!snap) continue;
+    if (curAt && (snap.capturedAt || '') > curAt) continue;
+    const arr = snap[fieldName];
+    if (Array.isArray(arr)) items.push(...arr);
+  }
+  return items;
+}
+
 // Apply the compare-window filter (strictly after the compare snapshot's
 // capturedAt). Returns items as-is if there's no compare snapshot.
 function filterChangesToWindow(items, compareSnap) {
@@ -1447,35 +1465,35 @@ function changesBlock(currentSnap, compareSnap) {
       key: 'github',
       label: 'GitHub',
       enabled: !!(CONFIG && CONFIG.repo),
-      items: filterChangesToWindow(currentSnap.commits, compareSnap),
+      items: filterChangesToWindow(collectAllChanges('commits', currentSnap), compareSnap),
       emptyText: 'No pull request (PR) or commit activity in this window.',
     },
     {
       key: 'wordpress',
       label: labelFor('wordpress', 'WordPress'),
       enabled: !!(CONFIG && CONFIG.wordpress && CONFIG.wordpress.enabled !== false),
-      items: filterChangesToWindow(currentSnap.wordpress, compareSnap),
+      items: filterChangesToWindow(collectAllChanges('wordpress', currentSnap), compareSnap),
       emptyText: 'No WordPress content changes in this window.',
     },
     {
       key: 'tinacms',
       label: labelFor('tinacms', 'TinaCMS'),
       enabled: !!(CONFIG && CONFIG.tinacms && CONFIG.tinacms.enabled !== false),
-      items: filterChangesToWindow(currentSnap.tinacms, compareSnap),
+      items: filterChangesToWindow(collectAllChanges('tinacms', currentSnap), compareSnap),
       emptyText: 'No content edits in this window.',
     },
     {
       key: 'growthbook',
       label: labelFor('growthbook', 'GrowthBook'),
       enabled: !!(CONFIG && CONFIG.growthbook && CONFIG.growthbook.enabled !== false),
-      items: filterChangesToWindow(currentSnap.growthbook, compareSnap),
+      items: filterChangesToWindow(collectAllChanges('growthbook', currentSnap), compareSnap),
       emptyText: 'No GrowthBook experiment activity in this window.',
     },
     {
       key: 'optimizely',
       label: labelFor('optimizely', 'Optimizely'),
       enabled: !!(CONFIG && CONFIG.optimizely && CONFIG.optimizely.enabled !== false),
-      items: filterChangesToWindow(currentSnap.optimizely, compareSnap),
+      items: filterChangesToWindow(collectAllChanges('optimizely', currentSnap), compareSnap),
       emptyText: 'No experiment activity in this window.',
     },
   ].filter(s => s.enabled);
