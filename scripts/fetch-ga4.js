@@ -259,8 +259,9 @@ console.log(`URLs:      ${pagePaths.length} pagePaths to query`);
   console.log(`URLs out:  ${urlCount} of ${pagePaths.length} pagePaths returned data`);
 
   // Surface URLs in config that returned ZERO data so trailing-slash mismatches
-  // or other path drift get caught early.
-  const missingUrls = Object.values(pagePathToUrl).filter(u => !out[u]);
+  // or other path drift get caught early. Dedupe (Object.values includes both
+  // path variants pointing at the same canonical URL).
+  const missingUrls = [...new Set(Object.values(pagePathToUrl).filter(u => !out[u]))];
   if (missingUrls.length) {
     console.log(`Missing:   ${missingUrls.length} URL(s) returned no GA4 data:`);
     for (const u of missingUrls.slice(0, 5)) console.log(`             - ${u}`);
