@@ -11,6 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@google-analytics/data": "^6.1.0",
     "puppeteer": "^24.42.0"
   }
 }
