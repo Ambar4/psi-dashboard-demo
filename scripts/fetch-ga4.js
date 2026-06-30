@@ -125,6 +125,12 @@ console.log(`Window:    ${startDate}  ->  ${endDate}`);
 // GA4's pagePath dimension returns the path component only (no host). Build
 // a map from path -> full URL so the output can be keyed by the same full
 // URLs the dashboard already shows in cards.
+//
+// Trailing-slash normalization: GA4 stores whatever path users actually
+// visited, so `/about/careers` and `/about/careers/` are distinct rows.
+// Config URLs may be written either way. To avoid silent misses, add BOTH
+// variants of each path to the filter and the reverse-lookup map; both
+// variants resolve back to the same canonical config URL.
 const urlToPath = {};
 const pagePathToUrl = {};
 for (const url of (cfg.urls || [])) {
@@ -133,6 +139,11 @@ for (const url of (cfg.urls || [])) {
     const p = u.pathname || '/';
     urlToPath[url] = p;
     pagePathToUrl[p] = url;
+    // Add the complement (with vs without trailing slash). Skip for "/" itself.
+    if (p !== '/') {
+      const alt = p.endsWith('/') ? p.slice(0, -1) : p + '/';
+      if (!(alt in pagePathToUrl)) pagePathToUrl[alt] = url;
+    }
   } catch (e) {
     console.warn(`Skipping unparseable URL: ${url}`);
   }
@@ -209,19 +220,28 @@ console.log(`URLs:      ${pagePaths.length} pagePaths to query`);
     const engSecs  = parseFloat(row.metricValues[2].value || '0');  // total seconds across users
     const keyEvts  = parseInt(row.metricValues[3].value || '0', 10);
 
-    // GA4 userEngagementDuration is total seconds. The dashboard's "Engage"
-    // shows avg per active user, in ms. Divide by activeUsers (clamped to 1
-    // to avoid div-by-zero when users == 0).
-    const engagementMs = Math.round((engSecs / Math.max(1, users)) * 1000);
-
     if (!out[fullUrl]) out[fullUrl] = {};
-    out[fullUrl][device] = {
-      views,
-      users,
-      engagementMs,
-      keyEvents: keyEvts,
-    };
+    // Sum totals when a canonical URL gets hit by multiple path variants
+    // (e.g. /about/careers and /about/careers/). Engagement gets recomputed
+    // as a user-weighted average after the loop so duration totals stay correct.
+    const acc = out[fullUrl][device] || { views: 0, users: 0, _engSecs: 0, keyEvents: 0 };
+    acc.views     += views;
+    acc.users     += users;
+    acc._engSecs  += engSecs;
+    acc.keyEvents += keyEvts;
+    out[fullUrl][device] = acc;
     counted++;
+  }
+
+  // GA4 userEngagementDuration is total seconds across users. The dashboard's
+  // "Engage" shows avg per active user, in ms. Compute it now (after summing
+  // across variants) so the average is correctly user-weighted.
+  for (const url of Object.keys(out)) {
+    for (const device of Object.keys(out[url])) {
+      const a = out[url][device];
+      a.engagementMs = Math.round((a._engSecs / Math.max(1, a.users)) * 1000);
+      delete a._engSecs;
+    }
   }
 
   // Fill missing device blocks with zeros so the dashboard's delta math doesn't
