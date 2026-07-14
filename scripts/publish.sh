@@ -83,12 +83,9 @@ if [ -d "$CLIENT_DIR/rrweb-recordings" ]; then
   fi
 fi
 
-# _redirects: keep stable Cloudflare redirects across clients
-cat > "$DEPLOY_DIR/_redirects" <<'EOF'
-/topps-psi-dashboard      /  301
-/topps-psi-dashboard/     /  301
-/topps-psi-dashboard.html /  301
-EOF
+# _redirects: reserved for Cloudflare Pages redirects. Currently empty; add
+# rules here as legacy paths need to point to /.
+: > "$DEPLOY_DIR/_redirects"
 
 # Sanity check: file count + total size
 FILE_COUNT=$(find "$DEPLOY_DIR" -type f | wc -l | tr -d ' ')

@@ -829,8 +829,8 @@ details[open] > .changes-header { margin-bottom: 10px; }
 <script>
 // Per-client config, loaded from config.json on init.
 let CONFIG = null;
-let BASE_HOST = '';   // e.g. 'https://www.bayalarm.com'  (full URL)
-let HOST_LABEL = '';  // e.g. 'www.bayalarm.com'          (just the host)
+let BASE_HOST = '';   // e.g. 'https://www.example.com'  (full URL)
+let HOST_LABEL = '';  // e.g. 'www.example.com'          (just the host)
 
 // State
 const SNAPSHOT_DATA = {};        // { id: { mobile: [...], desktop: [...] } }
@@ -1019,8 +1019,9 @@ const SOURCE_LABELS = {
   growthbook: 'GrowthBook',
   optimizely: 'Optimizely',
 };
-// Demo and LHC clients never enable both CMS sources or both A/B sources, so
-// the colors can be shared (TinaCMS uses WP's orange, Optimizely uses GB's purple).
+// A given client typically enables only one CMS source and only one A/B
+// source, so colors can be shared (TinaCMS uses WP's orange, Optimizely uses
+// GrowthBook's purple).
 const SOURCE_COLORS = {
   github: '#1a73e8',
   wordpress: '#f57c00',
@@ -1511,7 +1512,7 @@ function changesBlock(currentSnap, compareSnap) {
   const header = '<summary class="changes-header">' + headerLabel + '</summary>';
 
   // Hide the tab row entirely when only one source is enabled. Single-source
-  // clients (Topps after Phase 1, before WP secret is set) shouldn't see a
+  // clients (e.g. a client that only has GitHub wired up) shouldn't see a
   // pointless single-tab strip.
   const tabsHtml = sources.length > 1
     ? '<div class="changes-tabs">' + sources.map(s => {

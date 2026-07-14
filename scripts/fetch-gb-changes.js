@@ -7,8 +7,8 @@
 // Usage:
 //   node scripts/fetch-gb-changes.js <client> [snapshot-id]
 //
-// Auth: reads the API key from env var <CLIENT_UPPER>_GROWTHBOOK_API_KEY.
-// For Bay Alarm that's BAYALARM_GROWTHBOOK_API_KEY.
+// Auth: reads the API key from env var <CLIENT_UPPER>_GROWTHBOOK_API_KEY
+// (e.g. ACME_GROWTHBOOK_API_KEY for a client with id "acme").
 //
 // Skips silently (writes an empty items file) if:
 //   - the client config has no `growthbook` block, or

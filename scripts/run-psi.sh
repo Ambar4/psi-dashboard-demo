@@ -6,9 +6,8 @@
 #   ./scripts/run-psi.sh <client> [snapshot-id]
 #
 # Examples:
-#   ./scripts/run-psi.sh topps                  # snapshot-id = today's date
-#   ./scripts/run-psi.sh topps 2026-05-05
-#   ./scripts/run-psi.sh bayalarm
+#   ./scripts/run-psi.sh smashing                # snapshot-id = today's date
+#   ./scripts/run-psi.sh smashing 2026-05-05
 #
 # Reads URLs from clients/<client>/config.json.
 # Saves raw PSI JSON to clients/<client>/psi-raw/<snapshot-id>/.

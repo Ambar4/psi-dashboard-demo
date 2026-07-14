@@ -245,8 +245,9 @@ function updateIndex(snapshotId, capturedAt) {
     .sort();
   const capturedAt = allTimes[0] || new Date().toISOString();
 
-  // Pre-authored scores (from demo static data) win over inference. For LHC
-  // sources, items don't carry pre-authored scores so the inference fills in.
+  // Pre-authored scores (from demo static data) win over inference. For
+  // real-source items (from GitHub/WP/GB fetchers) scores are absent, so
+  // the inference fills them in.
   const maybeScore = (item) => {
     if (!item || (item.scores && item.scores.speed)) return item;
     const result = scoreItem(item);

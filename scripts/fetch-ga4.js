@@ -19,9 +19,9 @@
 //   node scripts/fetch-ga4.js <client> [snapshot-id]
 //
 // Auth: reads the service account JSON key from env var
-// <CLIENT_UPPER>_GA4_SERVICE_ACCOUNT_KEY (for Bay Alarm:
-// BAYALARM_GA4_SERVICE_ACCOUNT_KEY). The value is the entire JSON file
-// contents, dumped from GCP IAM -> Service Accounts -> Keys.
+// <CLIENT_UPPER>_GA4_SERVICE_ACCOUNT_KEY (e.g. ACME_GA4_SERVICE_ACCOUNT_KEY
+// for a client with id "acme"). The value is the entire JSON file contents,
+// dumped from GCP IAM -> Service Accounts -> Keys.
 //
 // Skips cleanly (writes {urls:{}} and exits 0) if:
 //   - config has no `ga4` block, or

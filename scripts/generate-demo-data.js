@@ -9,7 +9,7 @@
 //   node scripts/generate-demo-data.js <client> [snapshot-id]
 //
 // Gated on config.demoMode === true. No-ops for non-demo clients so the same
-// workflow can run for LHC matrix jobs without generating fake data.
+// workflow can run for other clients in the matrix without generating fake data.
 
 const fs = require('fs');
 const path = require('path');

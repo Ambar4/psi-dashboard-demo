@@ -9,8 +9,9 @@
 // Usage:
 //   node scripts/fetch-wp-changes.js <client> [snapshot-id]
 //
-// Auth: reads the app password from env var <CLIENT_UPPER>_WP_APP_PASSWORD.
-// For Topps that's TOPPS_WP_APP_PASSWORD. Username comes from config.
+// Auth: reads the app password from env var <CLIENT_UPPER>_WP_APP_PASSWORD
+// (e.g. ACME_WP_APP_PASSWORD for a client with id "acme"). Username comes
+// from config.
 //
 // Skips silently (writes an empty items file) if:
 //   - the client config has no `wordpress` block, or
@@ -128,7 +129,7 @@ async function wpGet(pathAndQuery) {
 }
 
 // Rewrite the WP-returned link from the origin host to the public host, if they differ.
-// E.g. https://stg-toppsripped-staging.kinsta.cloud/about/ -> https://topps-ripped-staging.lhchq.workers.dev/about/
+// E.g. https://origin.example.com/about/ -> https://www.example.com/about/
 function publicizeUrl(link) {
   if (!link || !PUBLIC_HOST || !WP_HOST || PUBLIC_HOST === WP_HOST) return link;
   try {
