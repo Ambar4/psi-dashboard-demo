@@ -59,6 +59,9 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # v3 of this action pins Wrangler 3.90.0 (Nov 2024) by default, which
+          # now fails against the current Cloudflare API. Pin a current version.
+          wranglerVersion: "4"
           command: >
             pages deploy dist/${{ matrix.client }}
             --project-name=${{ matrix.cf_project }}
