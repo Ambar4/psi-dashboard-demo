@@ -373,9 +373,9 @@ select {
 .demo-banner strong { color: #3d2e00; }
 
 /* Product tour (demo only): "Take the tour" re-trigger in the header, plus
-   Driver.js popover theming that matches the dark .trend-tooltip card style.
-   Both are inert unless config.demoMode === true (button stays hidden and
-   Driver.js is never loaded). */
+   Driver.js popover theming that matches the dashboard's white card style
+   (.summary / .card). Both are inert unless config.demoMode === true (button
+   stays hidden and Driver.js is never loaded). */
 .tour-btn {
   margin-left: auto;
   font-family: inherit;
@@ -395,10 +395,11 @@ select {
 @media (max-width: 900px) { .tour-btn { display: none; } }
 
 .driver-popover.psi-tour {
-  background: #1e1e24;
-  color: #f5f5f7;
-  border-radius: 10px;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.32);
+  background: white;
+  color: #1a1a1a;
+  border: 1px solid #e5e5e8;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
   max-width: 340px;
   font-family: inherit;
 }
@@ -406,38 +407,44 @@ select {
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
-  color: #f5f5f7;
+  color: #1a1a1a;
 }
 .psi-tour .driver-popover-description {
   font-family: inherit;
   font-size: 12.5px;
   line-height: 1.5;
-  color: rgba(255,255,255,0.78);
+  color: #555;
 }
-.psi-tour .driver-popover-progress-text { font-size: 11px; color: rgba(255,255,255,0.45); }
-.psi-tour .driver-popover-close-btn { color: rgba(255,255,255,0.5); }
-.psi-tour .driver-popover-close-btn:hover { color: #f5f5f7; }
+.psi-tour .driver-popover-progress-text { font-size: 11px; color: #999; }
+.psi-tour .driver-popover-close-btn {
+  color: #777;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+}
+.psi-tour .driver-popover-close-btn:hover { color: #1a1a1a; }
 .psi-tour .driver-popover-navigation-btns button {
   font-family: inherit;
   font-size: 12px;
   font-weight: 500;
-  background: #2f2f37;
-  color: #f5f5f7;
-  border: 1px solid rgba(255,255,255,0.14);
+  background: white;
+  color: #555;
+  border: 1px solid #d5d5d8;
   border-radius: 6px;
   padding: 6px 12px;
   text-shadow: none;
 }
-.psi-tour .driver-popover-navigation-btns button:hover { background: #3a3a44; color: #f5f5f7; }
+.psi-tour .driver-popover-navigation-btns button:hover { background: #f3f3f5; color: #1a1a1a; }
 .psi-tour .driver-popover-next-btn {
   background: #1a73e8;
   border-color: #1a73e8;
+  color: white;
 }
-.psi-tour .driver-popover-next-btn:hover { background: #1566d0; }
-.psi-tour .driver-popover-arrow-side-left   { border-left-color: #1e1e24; }
-.psi-tour .driver-popover-arrow-side-right  { border-right-color: #1e1e24; }
-.psi-tour .driver-popover-arrow-side-top    { border-top-color: #1e1e24; }
-.psi-tour .driver-popover-arrow-side-bottom { border-bottom-color: #1e1e24; }
+.psi-tour .driver-popover-next-btn:hover { background: #1566d0; color: white; }
+.psi-tour .driver-popover-arrow-side-left   { border-left-color: white; }
+.psi-tour .driver-popover-arrow-side-right  { border-right-color: white; }
+.psi-tour .driver-popover-arrow-side-top    { border-top-color: white; }
+.psi-tour .driver-popover-arrow-side-bottom { border-bottom-color: white; }
 .trend-marker { cursor: pointer; }
 .trend-marker:hover { opacity: 0.65; }
 
