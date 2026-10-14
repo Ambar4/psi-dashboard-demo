@@ -1,0 +1,1425 @@
+{
+  "id": "2026-10-14",
+  "capturedAt": "2026-10-14T17:58:22.718Z",
+  "commits": [
+    {
+      "type": "pr",
+      "title": "Defer Google Tag Manager until first user interaction",
+      "date": "2026-10-08T01:09:14.849Z",
+      "author": "Iris Lješnjanin",
+      "url": "https://github.com/Ambar4/smashing-demo-changes/pulls",
+      "number": 1287,
+      "scores": {
+        "speed": {
+          "value": 75,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 15,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 15,
+          "direction": "Neutral"
+        }
+      },
+      "drivers": [
+        "third-party script / tag"
+      ]
+    }
+  ],
+  "wordpress": [],
+  "growthbook": [],
+  "tinacms": [
+    {
+      "type": "tina-page",
+      "title": "CSS category: featured articles refresh",
+      "date": "2026-10-14T12:17:47.717Z",
+      "author": "Cosima Mielke",
+      "url": "https://www.smashingmagazine.com/category/css/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 18,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 70,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 22,
+          "direction": "Neutral"
+        }
+      },
+      "drivers": [
+        "category page update",
+        "new internal linking",
+        "high-traffic landing page"
+      ]
+    },
+    {
+      "type": "tina-page",
+      "title": "Accessibility category: WCAG 2.2 guide added",
+      "date": "2026-10-13T18:44:55.675Z",
+      "author": "Editorial Team",
+      "url": "https://www.smashingmagazine.com/category/accessibility/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 25,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 65,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 18,
+          "direction": "Neutral"
+        }
+      },
+      "drivers": [
+        "new indexed content",
+        "category page update",
+        "SEO-relevant topic"
+      ]
+    },
+    {
+      "type": "tina-post",
+      "title": "Newsletter archive: Issue #421 published",
+      "date": "2026-10-11T01:06:02.638Z",
+      "author": "Editorial Team",
+      "url": "https://www.smashingmagazine.com/the-smashing-newsletter/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 22,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 78,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 32,
+          "direction": "Neutral"
+        }
+      },
+      "drivers": [
+        "new indexed content",
+        "newsletter promotion adjacent",
+        "social shareable"
+      ]
+    },
+    {
+      "type": "tina-page",
+      "title": "Smashing Membership: 2026 tier updates",
+      "date": "2026-10-10T01:26:41.514Z",
+      "author": "Vitaly Friedman",
+      "url": "https://www.smashingmagazine.com/membership/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 28,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 35,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 72,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "pricing-adjacent page",
+        "tier definition update",
+        "primary nav reachable"
+      ]
+    },
+    {
+      "type": "tina-page",
+      "title": "Printed Books page: 3 new titles added",
+      "date": "2026-10-09T20:15:37.095Z",
+      "author": "Iris Lješnjanin",
+      "url": "https://www.smashingmagazine.com/printed-books/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 38,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 55,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 68,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "new product images",
+        "purchase intent page",
+        "new indexed content"
+      ]
+    },
+    {
+      "type": "tina-page",
+      "title": "Workshops: June 2026 schedule update",
+      "date": "2026-10-08T20:24:57.906Z",
+      "author": "Editorial Team",
+      "url": "https://www.smashingmagazine.com/online-workshops/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 12,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 45,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 58,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "fresh dated content",
+        "purchase intent page",
+        "limited audience"
+      ]
+    }
+  ],
+  "optimizely": [
+    {
+      "type": "experiment",
+      "title": "Book bundle pricing: $39 vs $49",
+      "date": "2026-10-12T19:54:47.350Z",
+      "author": "growth@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/book-bundle-pricing-39-vs-49",
+      "hypothesis": "Lowering the 3-book bundle price from $49 to $39 will increase units sold per visitor by 15% even after the per-book revenue drop.",
+      "status": "running",
+      "reason": "updated",
+      "scores": {
+        "speed": {
+          "value": 8,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 12,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 94,
+          "direction": "Mixed"
+        }
+      },
+      "drivers": [
+        "pricing change",
+        "active experiment",
+        "purchase intent page"
+      ]
+    },
+    {
+      "type": "experiment",
+      "title": "Article CTA: \"Read More\" vs \"Continue Reading\"",
+      "date": "2026-10-12T19:13:30.096Z",
+      "author": "experiments@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/article-cta-read-more-vs-continue-readin",
+      "hypothesis": "Changing the article-continue button text from 'Read More' to 'Continue Reading' will reduce ambiguity and increase click-through on category pages by 8%.",
+      "status": "stopped",
+      "reason": "stopped",
+      "scores": {
+        "speed": {
+          "value": 5,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 22,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 65,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "CTA copy change",
+        "high category-page exposure",
+        "stopped variant"
+      ]
+    },
+    {
+      "type": "experiment",
+      "title": "Membership upsell: post-purchase modal vs email",
+      "date": "2026-10-12T05:16:35.944Z",
+      "author": "growth@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/membership-upsell-post-purchase-modal-vs",
+      "hypothesis": "Showing a Smashing Membership upsell modal after book checkout will convert at 3x the rate of the current post-purchase email sequence.",
+      "status": "running",
+      "reason": "started",
+      "scores": {
+        "speed": {
+          "value": 35,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 8,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 88,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "post-checkout modal",
+        "high-intent moment",
+        "active experiment"
+      ]
+    },
+    {
+      "type": "experiment",
+      "title": "Free chapter preview: download vs in-browser reader",
+      "date": "2026-10-11T22:35:00.782Z",
+      "author": "experiments@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/free-chapter-preview-download-vs-in-brow",
+      "hypothesis": "Replacing the 'Download free chapter' CTA with an in-browser preview reader will increase book purchase rate within 24 hours by 12%.",
+      "status": "draft",
+      "reason": "created",
+      "scores": {
+        "speed": {
+          "value": 55,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 10,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 80,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "in-browser reader assets",
+        "book purchase flow",
+        "draft (not exposed)"
+      ]
+    },
+    {
+      "type": "experiment",
+      "title": "Newsletter signup: above-the-fold vs sidebar placement",
+      "date": "2026-10-10T04:20:40.678Z",
+      "author": "growth@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/newsletter-signup-above-the-fold-vs-side",
+      "hypothesis": "Moving the newsletter signup form above the fold on article pages will increase conversion rate by 25% over the current sidebar placement.",
+      "status": "running",
+      "reason": "started",
+      "scores": {
+        "speed": {
+          "value": 70,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 18,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 91,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "above-the-fold placement",
+        "active experiment",
+        "exact page match"
+      ]
+    }
+  ],
+  "ga4": {
+    "https://www.smashingmagazine.com/": {
+      "mobile": {
+        "views": 34427,
+        "users": 26409,
+        "engagementMs": 30022,
+        "keyEvents": 126
+      },
+      "desktop": {
+        "views": 23009,
+        "users": 17364,
+        "engagementMs": 44075,
+        "keyEvents": 64
+      }
+    },
+    "https://www.smashingmagazine.com/articles/": {
+      "mobile": {
+        "views": 19081,
+        "users": 11738,
+        "engagementMs": 55340,
+        "keyEvents": 55
+      },
+      "desktop": {
+        "views": 14084,
+        "users": 10557,
+        "engagementMs": 99820,
+        "keyEvents": 43
+      }
+    },
+    "https://www.smashingmagazine.com/category/css/": {
+      "mobile": {
+        "views": 9454,
+        "users": 6953,
+        "engagementMs": 69045,
+        "keyEvents": 32
+      },
+      "desktop": {
+        "views": 6238,
+        "users": 4585,
+        "engagementMs": 130770,
+        "keyEvents": 21
+      }
+    },
+    "https://www.smashingmagazine.com/category/javascript/": {
+      "mobile": {
+        "views": 6507,
+        "users": 5434,
+        "engagementMs": 82694,
+        "keyEvents": 31
+      },
+      "desktop": {
+        "views": 4795,
+        "users": 3580,
+        "engagementMs": 145758,
+        "keyEvents": 17
+      }
+    },
+    "https://www.smashingmagazine.com/category/performance/": {
+      "mobile": {
+        "views": 4127,
+        "users": 3617,
+        "engagementMs": 101126,
+        "keyEvents": 24
+      },
+      "desktop": {
+        "views": 3164,
+        "users": 2783,
+        "engagementMs": 172316,
+        "keyEvents": 18
+      }
+    },
+    "https://www.smashingmagazine.com/category/accessibility/": {
+      "mobile": {
+        "views": 3742,
+        "users": 3255,
+        "engagementMs": 104923,
+        "keyEvents": 19
+      },
+      "desktop": {
+        "views": 3363,
+        "users": 2911,
+        "engagementMs": 162731,
+        "keyEvents": 15
+      }
+    },
+    "https://www.smashingmagazine.com/membership/": {
+      "mobile": {
+        "views": 1681,
+        "users": 1525,
+        "engagementMs": 100739,
+        "keyEvents": 33
+      },
+      "desktop": {
+        "views": 2633,
+        "users": 1765,
+        "engagementMs": 185111,
+        "keyEvents": 38
+      }
+    },
+    "https://www.smashingmagazine.com/printed-books/": {
+      "mobile": {
+        "views": 1947,
+        "users": 1282,
+        "engagementMs": 113136,
+        "keyEvents": 40
+      },
+      "desktop": {
+        "views": 2186,
+        "users": 1932,
+        "engagementMs": 163652,
+        "keyEvents": 45
+      }
+    },
+    "https://www.smashingmagazine.com/online-workshops/": {
+      "mobile": {
+        "views": 1090,
+        "users": 955,
+        "engagementMs": 115316,
+        "keyEvents": 15
+      },
+      "desktop": {
+        "views": 1180,
+        "users": 1040,
+        "engagementMs": 191518,
+        "keyEvents": 18
+      }
+    },
+    "https://www.smashingmagazine.com/the-smashing-newsletter/": {
+      "mobile": {
+        "views": 3904,
+        "users": 3172,
+        "engagementMs": 57223,
+        "keyEvents": 93
+      },
+      "desktop": {
+        "views": 1921,
+        "users": 1572,
+        "engagementMs": 89160,
+        "keyEvents": 54
+      }
+    }
+  },
+  "mobile": [
+    {
+      "url": "https://www.smashingmagazine.com/",
+      "fetchTime": "2026-10-14T17:58:23.799Z",
+      "scores": {
+        "performance": 83,
+        "accessibility": 92,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "4.1 s",
+          "score": 0.46
+        },
+        "fcp": {
+          "display": "1.7 s",
+          "score": 0.93
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "30 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "4.4 s",
+          "score": 0.74
+        },
+        "ttfb": {
+          "display": "Root document took 10 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 440,
+          "savingsBytes": 154464,
+          "displayValue": "Est savings of 151 KiB"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 300,
+          "savingsBytes": 63328,
+          "displayValue": "Est savings of 62 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/articles/",
+      "fetchTime": "2026-10-14T17:58:23.599Z",
+      "scores": {
+        "performance": 88,
+        "accessibility": 90,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "3.7 s",
+          "score": 0.59
+        },
+        "fcp": {
+          "display": "2.0 s",
+          "score": 0.85
+        },
+        "cls": {
+          "display": "0.024",
+          "score": 1
+        },
+        "tbt": {
+          "display": "30 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "2.0 s",
+          "score": 0.99
+        },
+        "ttfb": {
+          "display": "Root document took 210 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 440,
+          "savingsBytes": 93969,
+          "displayValue": "Est savings of 92 KiB"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 300,
+          "savingsBytes": 64895,
+          "displayValue": "Est savings of 63 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/css/",
+      "fetchTime": "2026-10-14T17:58:24.593Z",
+      "scores": {
+        "performance": 86,
+        "accessibility": 90,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "3.5 s",
+          "score": 0.62
+        },
+        "fcp": {
+          "display": "1.8 s",
+          "score": 0.89
+        },
+        "cls": {
+          "display": "0.003",
+          "score": 1
+        },
+        "tbt": {
+          "display": "70 ms",
+          "score": 0.99
+        },
+        "si": {
+          "display": "4.5 s",
+          "score": 0.72
+        },
+        "ttfb": {
+          "display": "Root document took 100 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 360,
+          "savingsBytes": 154807,
+          "displayValue": "Est savings of 151 KiB"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 300,
+          "savingsBytes": 64731,
+          "displayValue": "Est savings of 63 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/javascript/",
+      "fetchTime": "2026-10-14T17:58:23.368Z",
+      "scores": {
+        "performance": 86,
+        "accessibility": 90,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "3.6 s",
+          "score": 0.61
+        },
+        "fcp": {
+          "display": "2.0 s",
+          "score": 0.85
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "20 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "4.6 s",
+          "score": 0.7
+        },
+        "ttfb": {
+          "display": "Root document took 150 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 450,
+          "savingsBytes": 64680,
+          "displayValue": "Est savings of 63 KiB"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 420,
+          "savingsBytes": 94019,
+          "displayValue": "Est savings of 92 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/performance/",
+      "fetchTime": "2026-10-14T17:58:23.461Z",
+      "scores": {
+        "performance": 86,
+        "accessibility": 90,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "3.6 s",
+          "score": 0.62
+        },
+        "fcp": {
+          "display": "2.0 s",
+          "score": 0.85
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "20 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "4.6 s",
+          "score": 0.7
+        },
+        "ttfb": {
+          "display": "Root document took 200 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 420,
+          "savingsBytes": 94001,
+          "displayValue": "Est savings of 92 KiB"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 300,
+          "savingsBytes": 64891,
+          "displayValue": "Est savings of 63 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/accessibility/",
+      "fetchTime": "2026-10-14T17:58:22.718Z",
+      "scores": {
+        "performance": 97,
+        "accessibility": 90,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "2.3 s",
+          "score": 0.94
+        },
+        "fcp": {
+          "display": "1.8 s",
+          "score": 0.89
+        },
+        "cls": {
+          "display": "0.003",
+          "score": 1
+        },
+        "tbt": {
+          "display": "10 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "1.8 s",
+          "score": 1
+        },
+        "ttfb": {
+          "display": "Root document took 210 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 300,
+          "savingsBytes": 65090,
+          "displayValue": "Est savings of 64 KiB"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": null,
+          "savingsBytes": 94001,
+          "displayValue": "Est savings of 92 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/membership/",
+      "fetchTime": "2026-10-14T17:58:23.112Z",
+      "scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "bestPractices": 100,
+        "seo": 69
+      },
+      "metrics": {
+        "lcp": {
+          "display": "7.6 s",
+          "score": 0.03
+        },
+        "fcp": {
+          "display": "1.7 s",
+          "score": 0.93
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "50 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "4.6 s",
+          "score": 0.7
+        },
+        "ttfb": {
+          "display": "Root document took 20 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 750,
+          "savingsBytes": 135625,
+          "displayValue": "Est savings of 132 KiB"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 300,
+          "savingsBytes": 64768,
+          "displayValue": "Est savings of 63 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/printed-books/",
+      "fetchTime": "2026-10-14T17:58:23.543Z",
+      "scores": {
+        "performance": 66,
+        "accessibility": 75,
+        "bestPractices": 100,
+        "seo": 92
+      },
+      "metrics": {
+        "lcp": {
+          "display": "7.3 s",
+          "score": 0.05
+        },
+        "fcp": {
+          "display": "1.8 s",
+          "score": 0.89
+        },
+        "cls": {
+          "display": "0.001",
+          "score": 1
+        },
+        "tbt": {
+          "display": "390 ms",
+          "score": 0.69
+        },
+        "si": {
+          "display": "2.3 s",
+          "score": 0.98
+        },
+        "ttfb": {
+          "display": "Root document took 200 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 300,
+          "savingsBytes": 63550,
+          "displayValue": "Est savings of 62 KiB"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": null,
+          "savingsBytes": 135289,
+          "displayValue": "Est savings of 132 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/online-workshops/",
+      "fetchTime": "2026-10-14T17:58:23.884Z",
+      "scores": {
+        "performance": 98,
+        "accessibility": 91,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "2.3 s",
+          "score": 0.94
+        },
+        "fcp": {
+          "display": "1.7 s",
+          "score": 0.93
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "20 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "1.7 s",
+          "score": 1
+        },
+        "ttfb": {
+          "display": "Root document took 100 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 450,
+          "savingsBytes": 65180,
+          "displayValue": "Est savings of 64 KiB"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": null,
+          "savingsBytes": 93969,
+          "displayValue": "Est savings of 92 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/the-smashing-newsletter/",
+      "fetchTime": "2026-10-14T17:58:23.606Z",
+      "scores": {
+        "performance": 89,
+        "accessibility": 91,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "3.3 s",
+          "score": 0.7
+        },
+        "fcp": {
+          "display": "1.8 s",
+          "score": 0.89
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "50 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "4.2 s",
+          "score": 0.77
+        },
+        "ttfb": {
+          "display": "Root document took 10 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 600,
+          "savingsBytes": 64605,
+          "displayValue": "Est savings of 63 KiB"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 570,
+          "savingsBytes": 94001,
+          "displayValue": "Est savings of 92 KiB"
+        }
+      ]
+    }
+  ],
+  "desktop": [
+    {
+      "url": "https://www.smashingmagazine.com/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/articles/",
+      "fetchTime": "2026-10-14T17:59:03.055Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 90,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "0.9 s",
+          "score": 0.97
+        },
+        "fcp": {
+          "display": "0.5 s",
+          "score": 1
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "20 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "0.5 s",
+          "score": 1
+        },
+        "ttfb": {
+          "display": "Root document took 10 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 130,
+          "savingsBytes": 93938,
+          "displayValue": "Est savings of 92 KiB"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 40,
+          "savingsBytes": 64716,
+          "displayValue": "Est savings of 63 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/css/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/javascript/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/performance/",
+      "fetchTime": "2026-10-14T17:59:02.391Z",
+      "scores": {
+        "performance": 95,
+        "accessibility": 90,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "1.0 s",
+          "score": 0.95
+        },
+        "fcp": {
+          "display": "0.4 s",
+          "score": 1
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "150 ms",
+          "score": 0.89
+        },
+        "si": {
+          "display": "0.6 s",
+          "score": 1
+        },
+        "ttfb": {
+          "display": "Root document took 10 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 80,
+          "savingsBytes": 94001,
+          "displayValue": "Est savings of 92 KiB"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 40,
+          "savingsBytes": 64497,
+          "displayValue": "Est savings of 63 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/accessibility/",
+      "fetchTime": "2026-10-14T17:59:02.018Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 90,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcp": {
+          "display": "0.9 s",
+          "score": 0.97
+        },
+        "fcp": {
+          "display": "0.4 s",
+          "score": 1
+        },
+        "cls": {
+          "display": "0",
+          "score": 1
+        },
+        "tbt": {
+          "display": "50 ms",
+          "score": 1
+        },
+        "si": {
+          "display": "0.5 s",
+          "score": 1
+        },
+        "ttfb": {
+          "display": "Root document took 60 ms",
+          "score": 1
+        }
+      },
+      "insights": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "savingsMs": 80,
+          "savingsBytes": 94001,
+          "displayValue": "Est savings of 92 KiB"
+        },
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "savingsMs": 40,
+          "savingsBytes": 64480,
+          "displayValue": "Est savings of 63 KiB"
+        }
+      ]
+    },
+    {
+      "url": "https://www.smashingmagazine.com/membership/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/printed-books/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/online-workshops/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/the-smashing-newsletter/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    }
+  ]
+}
