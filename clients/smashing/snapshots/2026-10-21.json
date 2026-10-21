@@ -1,0 +1,1230 @@
+{
+  "id": "2026-10-21",
+  "capturedAt": "2026-10-21T17:59:55.223Z",
+  "commits": [
+    {
+      "type": "pr",
+      "title": "Update primary navigation: surface /membership/ in main nav",
+      "date": "2026-10-21T09:30:05.256Z",
+      "author": "Vitaly Friedman",
+      "url": "https://github.com/Ambar4/smashing-demo-changes/pulls",
+      "number": 1288,
+      "scores": {
+        "speed": {
+          "value": 25,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 50,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 50,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "navigation change"
+      ]
+    }
+  ],
+  "wordpress": [],
+  "growthbook": [],
+  "tinacms": [
+    {
+      "type": "tina-page",
+      "title": "Printed Books page: 3 new titles added",
+      "date": "2026-10-20T14:09:06.322Z",
+      "author": "Iris Lješnjanin",
+      "url": "https://www.smashingmagazine.com/printed-books/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 38,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 55,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 68,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "new product images",
+        "purchase intent page",
+        "new indexed content"
+      ]
+    },
+    {
+      "type": "tina-page",
+      "title": "Smashing Membership: 2026 tier updates",
+      "date": "2026-10-20T08:58:01.902Z",
+      "author": "Vitaly Friedman",
+      "url": "https://www.smashingmagazine.com/membership/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 28,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 35,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 72,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "pricing-adjacent page",
+        "tier definition update",
+        "primary nav reachable"
+      ]
+    },
+    {
+      "type": "tina-page",
+      "title": "CSS category: featured articles refresh",
+      "date": "2026-10-19T05:54:51.413Z",
+      "author": "Cosima Mielke",
+      "url": "https://www.smashingmagazine.com/category/css/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 18,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 70,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 22,
+          "direction": "Neutral"
+        }
+      },
+      "drivers": [
+        "category page update",
+        "new internal linking",
+        "high-traffic landing page"
+      ]
+    },
+    {
+      "type": "tina-page",
+      "title": "Workshops: June 2026 schedule update",
+      "date": "2026-10-18T06:56:09.527Z",
+      "author": "Editorial Team",
+      "url": "https://www.smashingmagazine.com/online-workshops/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 12,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 45,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 58,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "fresh dated content",
+        "purchase intent page",
+        "limited audience"
+      ]
+    },
+    {
+      "type": "tina-page",
+      "title": "Accessibility category: WCAG 2.2 guide added",
+      "date": "2026-10-16T20:25:54.335Z",
+      "author": "Editorial Team",
+      "url": "https://www.smashingmagazine.com/category/accessibility/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 25,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 65,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 18,
+          "direction": "Neutral"
+        }
+      },
+      "drivers": [
+        "new indexed content",
+        "category page update",
+        "SEO-relevant topic"
+      ]
+    },
+    {
+      "type": "tina-post",
+      "title": "Newsletter archive: Issue #421 published",
+      "date": "2026-10-14T15:13:47.516Z",
+      "author": "Editorial Team",
+      "url": "https://www.smashingmagazine.com/the-smashing-newsletter/",
+      "status": "publish",
+      "scores": {
+        "speed": {
+          "value": 22,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 78,
+          "direction": "+Traffic"
+        },
+        "conversion": {
+          "value": 32,
+          "direction": "Neutral"
+        }
+      },
+      "drivers": [
+        "new indexed content",
+        "newsletter promotion adjacent",
+        "social shareable"
+      ]
+    }
+  ],
+  "optimizely": [
+    {
+      "type": "experiment",
+      "title": "Membership upsell: post-purchase modal vs email",
+      "date": "2026-10-20T09:17:59.057Z",
+      "author": "growth@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/membership-upsell-post-purchase-modal-vs",
+      "hypothesis": "Showing a Smashing Membership upsell modal after book checkout will convert at 3x the rate of the current post-purchase email sequence.",
+      "status": "running",
+      "reason": "started",
+      "scores": {
+        "speed": {
+          "value": 35,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 8,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 88,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "post-checkout modal",
+        "high-intent moment",
+        "active experiment"
+      ]
+    },
+    {
+      "type": "experiment",
+      "title": "Article CTA: \"Read More\" vs \"Continue Reading\"",
+      "date": "2026-10-18T18:54:46.458Z",
+      "author": "experiments@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/article-cta-read-more-vs-continue-readin",
+      "hypothesis": "Changing the article-continue button text from 'Read More' to 'Continue Reading' will reduce ambiguity and increase click-through on category pages by 8%.",
+      "status": "stopped",
+      "reason": "stopped",
+      "scores": {
+        "speed": {
+          "value": 5,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 22,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 65,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "CTA copy change",
+        "high category-page exposure",
+        "stopped variant"
+      ]
+    },
+    {
+      "type": "experiment",
+      "title": "Book bundle pricing: $39 vs $49",
+      "date": "2026-10-15T18:36:25.439Z",
+      "author": "growth@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/book-bundle-pricing-39-vs-49",
+      "hypothesis": "Lowering the 3-book bundle price from $49 to $39 will increase units sold per visitor by 15% even after the per-book revenue drop.",
+      "status": "running",
+      "reason": "updated",
+      "scores": {
+        "speed": {
+          "value": 8,
+          "direction": "Neutral"
+        },
+        "traffic": {
+          "value": 12,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 94,
+          "direction": "Mixed"
+        }
+      },
+      "drivers": [
+        "pricing change",
+        "active experiment",
+        "purchase intent page"
+      ]
+    },
+    {
+      "type": "experiment",
+      "title": "Free chapter preview: download vs in-browser reader",
+      "date": "2026-10-14T06:50:33.223Z",
+      "author": "experiments@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/free-chapter-preview-download-vs-in-brow",
+      "hypothesis": "Replacing the 'Download free chapter' CTA with an in-browser preview reader will increase book purchase rate within 24 hours by 12%.",
+      "status": "draft",
+      "reason": "created",
+      "scores": {
+        "speed": {
+          "value": 55,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 10,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 80,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "in-browser reader assets",
+        "book purchase flow",
+        "draft (not exposed)"
+      ]
+    },
+    {
+      "type": "experiment",
+      "title": "Newsletter signup: above-the-fold vs sidebar placement",
+      "date": "2026-10-14T02:48:33.226Z",
+      "author": "growth@smashing",
+      "url": "https://app.optimizely.com/v2/projects/9876543/experiments/newsletter-signup-above-the-fold-vs-side",
+      "hypothesis": "Moving the newsletter signup form above the fold on article pages will increase conversion rate by 25% over the current sidebar placement.",
+      "status": "running",
+      "reason": "started",
+      "scores": {
+        "speed": {
+          "value": 70,
+          "direction": "-Perf"
+        },
+        "traffic": {
+          "value": 18,
+          "direction": "Neutral"
+        },
+        "conversion": {
+          "value": 91,
+          "direction": "+Conv"
+        }
+      },
+      "drivers": [
+        "above-the-fold placement",
+        "active experiment",
+        "exact page match"
+      ]
+    }
+  ],
+  "ga4": {
+    "https://www.smashingmagazine.com/": {
+      "mobile": {
+        "views": 35297,
+        "users": 24391,
+        "engagementMs": 26522,
+        "keyEvents": 121
+      },
+      "desktop": {
+        "views": 20169,
+        "users": 18561,
+        "engagementMs": 46726,
+        "keyEvents": 68
+      }
+    },
+    "https://www.smashingmagazine.com/articles/": {
+      "mobile": {
+        "views": 16104,
+        "users": 13428,
+        "engagementMs": 61541,
+        "keyEvents": 55
+      },
+      "desktop": {
+        "views": 15628,
+        "users": 11778,
+        "engagementMs": 83971,
+        "keyEvents": 37
+      }
+    },
+    "https://www.smashingmagazine.com/category/css/": {
+      "mobile": {
+        "views": 9531,
+        "users": 7013,
+        "engagementMs": 70048,
+        "keyEvents": 29
+      },
+      "desktop": {
+        "views": 5689,
+        "users": 4162,
+        "engagementMs": 136040,
+        "keyEvents": 23
+      }
+    },
+    "https://www.smashingmagazine.com/category/javascript/": {
+      "mobile": {
+        "views": 7752,
+        "users": 5811,
+        "engagementMs": 70607,
+        "keyEvents": 28
+      },
+      "desktop": {
+        "views": 4292,
+        "users": 3587,
+        "engagementMs": 122334,
+        "keyEvents": 16
+      }
+    },
+    "https://www.smashingmagazine.com/category/performance/": {
+      "mobile": {
+        "views": 4790,
+        "users": 4167,
+        "engagementMs": 90223,
+        "keyEvents": 25
+      },
+      "desktop": {
+        "views": 3737,
+        "users": 2940,
+        "engagementMs": 151166,
+        "keyEvents": 19
+      }
+    },
+    "https://www.smashingmagazine.com/category/accessibility/": {
+      "mobile": {
+        "views": 3270,
+        "users": 3479,
+        "engagementMs": 107741,
+        "keyEvents": 20
+      },
+      "desktop": {
+        "views": 3523,
+        "users": 2274,
+        "engagementMs": 159853,
+        "keyEvents": 16
+      }
+    },
+    "https://www.smashingmagazine.com/membership/": {
+      "mobile": {
+        "views": 1745,
+        "users": 1411,
+        "engagementMs": 112631,
+        "keyEvents": 34
+      },
+      "desktop": {
+        "views": 2273,
+        "users": 1845,
+        "engagementMs": 203154,
+        "keyEvents": 40
+      }
+    },
+    "https://www.smashingmagazine.com/printed-books/": {
+      "mobile": {
+        "views": 1595,
+        "users": 1418,
+        "engagementMs": 117753,
+        "keyEvents": 38
+      },
+      "desktop": {
+        "views": 2277,
+        "users": 2009,
+        "engagementMs": 154238,
+        "keyEvents": 42
+      }
+    },
+    "https://www.smashingmagazine.com/online-workshops/": {
+      "mobile": {
+        "views": 962,
+        "users": 849,
+        "engagementMs": 124631,
+        "keyEvents": 13
+      },
+      "desktop": {
+        "views": 1277,
+        "users": 1122,
+        "engagementMs": 238870,
+        "keyEvents": 17
+      }
+    },
+    "https://www.smashingmagazine.com/the-smashing-newsletter/": {
+      "mobile": {
+        "views": 3702,
+        "users": 2998,
+        "engagementMs": 58146,
+        "keyEvents": 103
+      },
+      "desktop": {
+        "views": 1896,
+        "users": 1268,
+        "engagementMs": 86245,
+        "keyEvents": 52
+      }
+    }
+  },
+  "mobile": [
+    {
+      "url": "https://www.smashingmagazine.com/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/articles/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/css/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/javascript/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/performance/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/accessibility/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/membership/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/printed-books/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/online-workshops/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/the-smashing-newsletter/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    }
+  ],
+  "desktop": [
+    {
+      "url": "https://www.smashingmagazine.com/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/articles/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/css/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/javascript/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/performance/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/category/accessibility/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/membership/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/printed-books/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/online-workshops/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    },
+    {
+      "url": "https://www.smashingmagazine.com/the-smashing-newsletter/",
+      "fetchTime": null,
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "bestPractices": null,
+        "seo": null
+      },
+      "metrics": {
+        "lcp": {
+          "display": "-",
+          "score": null
+        },
+        "fcp": {
+          "display": "-",
+          "score": null
+        },
+        "cls": {
+          "display": "-",
+          "score": null
+        },
+        "tbt": {
+          "display": "-",
+          "score": null
+        },
+        "si": {
+          "display": "-",
+          "score": null
+        },
+        "ttfb": {
+          "display": "-",
+          "score": null
+        }
+      },
+      "insights": []
+    }
+  ]
+}
